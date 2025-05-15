@@ -1,7 +1,7 @@
 // app/login/page.js
 
-import React from 'react'
-import '../../styles/login.css'
+import React from "react";
+import "../../styles/login.css";
 
 // Server Component (được render trên server)
 const Login = ({ cookies, searchParams }) => {
@@ -19,17 +19,12 @@ const Login = ({ cookies, searchParams }) => {
   // }
 
   // Xử lý lỗi nếu có
-  let errorMessage = null
-  if (searchParams.error) {
-    errorMessage = 'Thông tin đăng nhập không đúng. Vui lòng thử lại.'
-  }
 
   return (
     <div className="login-container">
       <div className="login-box">
         <h2>Login</h2>
-        {errorMessage && <p className="error">{errorMessage}</p>}
-        <form onSubmit>
+        <form action="http://localhost:4000/api/auth/login" method="POST">
           <div className="textbox">
             <input type="email" name="email" placeholder="Email" required />
           </div>
@@ -50,8 +45,8 @@ const Login = ({ cookies, searchParams }) => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
 // Hàm này xử lý việc lấy thông tin từ cookies và query params
 export async function generateMetadata({ cookies, searchParams }) {
@@ -61,7 +56,7 @@ export async function generateMetadata({ cookies, searchParams }) {
       cookies,
       searchParams,
     },
-  }
+  };
 }
 
-export default Login
+export default Login;
