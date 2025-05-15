@@ -1,0 +1,75 @@
+/* Định dạng tổng thể của trang */
+.login-container {
+}
+
+/* Định dạng hộp đăng nhập */
+.login-box {
+  background: rgb(255, 255, 255);
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 4px 4px 8px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  margin: 50px auto;
+}
+
+/* Tiêu đề đăng nhập */
+.login-box h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Định dạng các ô nhập liệu */
+.textbox {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.textbox input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Hiệu ứng khi input được chọn */
+.textbox input:focus {
+  border-color: #4caf50;
+}
+
+/* Định dạng nút đăng nhập */
+.btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Hiệu ứng hover cho nút đăng nhập */
+.btn:hover {
+  background-color: #45a049;
+}
+
+/* Liên kết chuyển tới trang đăng ký */
+.register-link {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.register-link a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
