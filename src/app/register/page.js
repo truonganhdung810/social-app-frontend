@@ -8,7 +8,7 @@ const Login = ({ cookies, searchParams }) => {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2>Login</h2>
+        <h2>Register</h2>
         <form action="/api/auth/login" method="POST">
           <div className="textbox">
             <input type="email" name="email" placeholder="Email" required />
@@ -21,11 +21,19 @@ const Login = ({ cookies, searchParams }) => {
               required
             />
           </div>
+          <div className="textbox">
+            <input
+              type="password"
+              name="password"
+              placeholder="Confirm Password"
+              required
+            />
+          </div>
           <button className="btn" type="submit">
-            Login
+            Register
           </button>
           <p className="register-link">
-            Do not have an account? <a href="/register">Register here</a>
+            Do have an account? <a href="/login">Login here</a>
           </p>
         </form>
       </div>
