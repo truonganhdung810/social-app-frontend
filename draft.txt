@@ -18,6 +18,77 @@ Content-Type: application/json
   "role": "admin"
 }
 
+Register -> trả về trạng thái
+POST http://localhost:4000/api/users
+Content-Type: application/json
+
+{
+  "name": "User",
+  "email": "admin@example.com",
+  "password": "123456",
+}
+
 Xóa user (cần token author)
 DELETE http://localhost:4000/api/users/1
 Authorization: Bearer <token từ bước trên>
+
+// Khởi tạo Database Social-app
+-- 1. Tạo database
+CREATE DATABASE IF NOT EXISTS social_app CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- 2. Sử dụng database
+USE social_app;
+
+-- 3. Tạo bảng users
+CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    avatar VARCHAR(255),
+    cover_photo VARCHAR(255),
+    role ENUM('user', 'admin') DEFAULT 'user',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 4. Tạo bảng friendships
+CREATE TABLE friendships (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    requester_id BIGINT NOT NULL,
+    addressee_id BIGINT NOT NULL,
+    status ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_requester FOREIGN KEY (requester_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_addressee FOREIGN KEY (addressee_id) REFERENCES users(id) ON DELETE CASCADE,
+    UNIQUE (requester_id, addressee_id)
+);
+
+-- 5. Tạo bảng posts
+CREATE TABLE posts (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    content TEXT,
+    image VARCHAR(255),
+    visibility ENUM('public', 'friends', 'private') DEFAULT 'public',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_post_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- 6. (Tùy chọn) Tạo bảng comments
+CREATE TABLE comments (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    post_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- 7. (Tùy chọn) Seed user admin
+-- Hãy thay 'hashed_password_here' bằng mật khẩu đã mã hóa (bcrypt...)
+INSERT INTO users (name, email, password, role)
+VALUES ('Admin', 'admin@example.com', 'hashed_password_here', 'admin');

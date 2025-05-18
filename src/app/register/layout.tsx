@@ -1,8 +1,6 @@
-import "./globals.css";
-
 export const metadata = {
-  title: "Social App",
-  description: "Mạng xã hội đơn giản",
+  title: "Register",
+  description: "Register",
 };
 
 export default function RootLayout({

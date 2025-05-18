@@ -1,22 +1,14 @@
-// app/page.jsx
+// app/page.tsx
+// Nhập layout.tsx để sử dụng layout trong trang này
 
-// Gọi API từ server
-async function getData() {
-  const res = await fetch('http://localhost:3000/api/auth/verify')
+import RootLayout from "./layout";
+import GetToken from "./components/GetToken";
 
-  if (!res.ok) {
-    throw new Error('Lỗi khi gọi API')
-  }
-
-  return res
-}
-
-export default async function HomePage() {
-  const data = await getData()
-  console.log('day la data: ' + data)
+export default function Home() {
   return (
-    <div>
-      <h1>Home Page</h1>
-    </div>
-  )
+    <RootLayout>
+      <h1>Trang Chủ</h1>
+      <GetToken />
+    </RootLayout>
+  );
 }

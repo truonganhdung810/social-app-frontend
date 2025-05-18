@@ -1,16 +1,29 @@
 // app/api/auth/verify/route.js
-import { cookies } from 'next/headers'
-import { NextResponse } from 'next/server'
 
-export async function GET(request) {
-  const cookies = request.cookies.getAll()
-  const token = request.cookies.get('token')?.value || 'No Token Found'
+import { NextResponse } from "next/server";
 
-  if (token === 'No Token Found') {
-    console.log(token)
-    const response = NextResponse.redirect('http://localhost:3000/login')
-    return response
-  } else {
-    return NextResponse.json(token)
+export async function GET(request: Request) {
+  const token = request.headers.get("Authorization")?.replace("Bearer ", "");
+
+  if (!token) {
+    return NextResponse.json({ error: "No token provided" }, { status: 401 });
+  }
+
+  // Xác thực token ở đây (có thể gọi tới API của backend)
+  try {
+    const res = await fetch("http://localhost:4000/api/auth/verify", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      return NextResponse.json({ error: data.message }, { status: res.status });
+    }
+
+    return NextResponse.json(data);
+  } catch (error) {
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
