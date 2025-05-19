@@ -1,14 +1,14 @@
 // app/page.tsx
 // Nhập layout.tsx để sử dụng layout trong trang này
 
-import RootLayout from "./layout";
-import GetToken from "./components/GetToken";
+import GetToken from '../components/GetToken'
+import TopNavigation from '../components/TopNavigation'
 
 export default function Home() {
   return (
-    <RootLayout>
-      <h1>Trang Chủ</h1>
+    <div>
       <GetToken />
-    </RootLayout>
-  );
+      <TopNavigation />
+    </div>
+  )
 }

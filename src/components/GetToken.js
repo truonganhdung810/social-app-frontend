@@ -1,13 +1,9 @@
 'use client'
-import TopNavigation from '@/components/TopNavigation'
-import { useRouter } from 'next/navigation'
-import * as React from 'react'
-import { useEffect } from 'react'
-import Profile from '@/components/Profile'
 
-function ProfilePage({ params }) {
-  // asynchronous access of `params.id`.
-  const { id } = React.use(params)
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function GetToken() {
   const router = useRouter()
   useEffect(() => {
     const fetchUserData = async () => {
@@ -17,11 +13,12 @@ function ProfilePage({ params }) {
         console.log('Token', token)
 
         if (token == null) {
+          toast.error('Chưa đăng nhập!')
           router.push('/login')
           return
         }
 
-        const response = await fetch(`http://localhost:4000/api/users/${id}`, {
+        const response = await fetch('http://localhost:4000/api/users', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -34,23 +31,16 @@ function ProfilePage({ params }) {
         if (response.ok) {
           console.log('Danh sach user', data)
         } else {
-          alert(data.message || 'Lỗi khi lấy thông tin người dùng!')
+          toast.error(data.message || 'Lỗi khi lấy thông tin người dùng!')
         }
       } catch (error) {
         console.error(error)
-        alert('Không thể kết nối tới server!')
+        toast.error('Không thể kết nối tới server!')
       }
     }
 
     fetchUserData()
   }, [])
 
-  return (
-    <div>
-      <TopNavigation />
-      <Profile />
-    </div>
-  )
+  return null
 }
-
-export default ProfilePage

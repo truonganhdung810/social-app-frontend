@@ -1,18 +1,20 @@
-import "./globals.css";
+import './globals.css'
 
 export const metadata = {
-  title: "Social App",
-  description: "Mạng xã hội đơn giản",
-};
+  title: 'Social App',
+  description: 'Mạng xã hội đơn giản',
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div>{children}</div>
+      </body>
     </html>
-  );
+  )
 }

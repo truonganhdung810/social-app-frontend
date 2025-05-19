@@ -1,0 +1,60 @@
+/* Reset default styles */
+body {
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #ffffff;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+  z-index: 9999;
+}
+
+.social-app-link a {
+}
+.nav-item {
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.nav-item a {
+  color: #4caf50;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+
+  transition: background-color 0.3s;
+}
+
+.profile-info {
+  display: flex; /* Sử dụng Flexbox */
+  justify-content: space-between; /* Cách đều các item */
+  align-items: center;
+}
+
+.profile-info img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover; /* Đảm bảo ảnh lấp đầy mà không bị méo */
+  border-radius: 50%; /* Đảm bảo ảnh cũng hình tròn */
+}
+
+.profile-info span {
+  margin-right: 5px;
+}
+
+.nav-item a:hover {
+  background-color: #555;
+  color: #fff;
+}

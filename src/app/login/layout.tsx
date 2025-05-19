@@ -1,16 +1,13 @@
-export const metadata = {
-  title: "Login",
-  description: "Login",
-};
+import '../../styles/navigation.css'
 
-export default function RootLayout({
+export const metadata = {
+  title: 'Social App - Login',
+  description: 'Mạng xã hội đơn giản',
+}
+export default function LoginLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
+  return <div>{children}</div>
 }

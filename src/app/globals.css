@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 @theme inline {
@@ -16,6 +18,16 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+  }
+}
+
+@media (max-width: 767px) {
+  /* CSS cho mobile */
+  :root {
+    --background: #ffffff;
+    --foreground: #171717;
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
 

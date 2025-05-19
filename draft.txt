@@ -92,3 +92,7 @@ CREATE TABLE comments (
 -- Hãy thay 'hashed_password_here' bằng mật khẩu đã mã hóa (bcrypt...)
 INSERT INTO users (name, email, password, role)
 VALUES ('Admin', 'admin@example.com', 'hashed_password_here', 'admin');
+
+
+primary-color: rgb(55, 168, 102);
+hover-color: rgb(44, 134, 81);
