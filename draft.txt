@@ -7,6 +7,37 @@ Content-Type: application/json
   "password": "123456"
 }
 
+Trả về danh sách user
+GET http://localhost:4000/api/users
+Authorization: Bearer <token từ bước trên>
+[
+    {
+        "id": 1,
+        "name": "",
+        "email": "",
+        "avatar": null,
+        "cover_photo": null,
+        "role": "user"
+    },
+    {
+        "id": 2,
+        "name": "User",
+        "email": "admin@example.com",
+        "avatar": null,
+        "cover_photo": null,
+        "role": "user"
+    },
+    {
+        "id": 3,
+        "name": "Dũng",
+        "email": "truonganhdung810@gmail.com",
+        "avatar": null,
+        "cover_photo": null,
+        "role": "user"
+    }
+]
+
+
 Register -> trả về trạng thái
 POST http://localhost:4000/api/users
 Content-Type: application/json
@@ -92,7 +123,6 @@ CREATE TABLE comments (
 -- Hãy thay 'hashed_password_here' bằng mật khẩu đã mã hóa (bcrypt...)
 INSERT INTO users (name, email, password, role)
 VALUES ('Admin', 'admin@example.com', 'hashed_password_here', 'admin');
-
 
 primary-color: rgb(55, 168, 102);
 hover-color: rgb(44, 134, 81);

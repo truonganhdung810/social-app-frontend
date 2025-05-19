@@ -49,6 +49,74 @@
   margin-bottom: 3px;
 }
 
+.vitri-popup {
+  position: relative;
+}
+
+.confirm-change {
+  z-index: 9999;
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-cancel {
+  background-color: rgb(33, 33, 33, 0.8);
+  color: white;
+  height: 35px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px 30px 10px 30px;
+}
+
+.btn-cancel:hover {
+  background-color: #222;
+}
+
+.btn-save {
+  background-color: rgb(55, 168, 102);
+  height: 35px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 10px;
+  padding: 10px 30px 10px 30px;
+}
+
+.btn-save:hover {
+  background-color: rgb(44, 134, 81);
+}
+
+.cover-img-container {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #ccc;
+  user-select: none;
+  cursor: grab;
+}
+
+.cover-img-container.dragging {
+  cursor: grabbing;
+}
+
+.cover-image {
+  object-fit: cover;
+  width: 100%;
+  /*height: 500px; /* ảnh lớn hơn khung */
+  pointer-events: none;
+  object-fit: cover; /* Đảm bảo ảnh không méo, cắt phần thừa */
+  display: block; /* Loại bỏ khoảng trắng dưới ảnh */
+}
+
 @media (max-width: 767px) {
   /* CSS cho mobile */
   .cover-container {

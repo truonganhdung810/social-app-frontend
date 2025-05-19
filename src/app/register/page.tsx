@@ -1,52 +1,50 @@
-// app/login/page.js
-
-'use client'
-import React from 'react'
-import { useState } from 'react'
-import '../../styles/login.css'
+"use client";
+import React from "react";
+import { useState } from "react";
+import "../../styles/login.css";
 
 // Server Component (được render trên server)
 const Register = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [message, setMessage] = useState('')
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:4000/api/users', {
-        method: 'POST',
+      const response = await fetch("http://localhost:4000/api/users", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name,
           email,
           password,
         }),
-      })
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        setMessage(data.message || 'Registration failed')
-        alert(data.message)
-        return
+        setMessage(data.message || "Registration failed");
+        alert(data.message);
+        return;
       }
 
-      setMessage('Registration successful!')
-      alert(data.message)
-      setName('')
-      setEmail('')
-      setPassword('')
+      setMessage("Registration successful!");
+      alert(data.message);
+      setName("");
+      setEmail("");
+      setPassword("");
     } catch (error) {
-      console.error(error)
-      setMessage('Failed to connect to server')
+      console.error(error);
+      setMessage("Failed to connect to server");
     }
-  }
+  };
   return (
     <div className="login-container">
       <div className="login-box">
@@ -105,6 +103,6 @@ const Register = () => {
         </form>
       </div>
     </div>
-  )
-}
-export default Register
+  );
+};
+export default Register;
