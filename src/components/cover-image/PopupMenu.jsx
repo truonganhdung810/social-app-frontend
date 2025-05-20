@@ -8,6 +8,8 @@ export default function PopupMenu({
   setIsOpen,
   buttonRef,
   setCoverUrl,
+  fileImage,
+  setFileImage,
 }) {
   const fileInputRef = useRef(null);
 
@@ -27,6 +29,7 @@ export default function PopupMenu({
     const file = event.target.files[0];
     if (file) {
       if (file && file.type.startsWith("image/")) {
+        setFileImage(file);
         const imageUrl = URL.createObjectURL(file);
         console.log(imageUrl);
         setCoverUrl(imageUrl);
