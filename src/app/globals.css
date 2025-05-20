@@ -1,10 +1,10 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  margin-left: 300px;
-  margin-right: 300px;
+  display: flex;
+  justify-content: center;
 }
 
 @theme inline {
@@ -21,22 +21,34 @@
   }
 }
 
-@media (max-width: 1280px) {
-  :root {
-    --background: #ffffff;
-    --foreground: #171717;
-    margin-left: 150px;
-    margin-right: 150px;
-  }
-}
-
 @media (max-width: 767px) {
   /* CSS cho mobile */
   :root {
     --background: #ffffff;
     --foreground: #171717;
-    margin-left: 0px;
-    margin-right: 0px;
+    display: flex;
+    justify-content: center;
+  }
+  body {
+    width: 100%; /* Đặt chiều rộng bằng 100% */
+    margin: 0; /* Xóa bỏ khoảng cách mặc định */
+    padding: 0; /* Xóa bỏ padding mặc định */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Các thuộc tính cho điện thoại di động */
+  :root {
+    --background: #ffffff;
+    --foreground: #171717;
+    display: flex;
+    justify-content: center;
+  }
+  body {
+    width: 100%; /* Đặt chiều rộng bằng 100% */
+    margin: 0; /* Xóa bỏ khoảng cách mặc định */
+    padding: 0; /* Xóa bỏ padding mặc định */
+    min-width: 350px;
   }
 }
 
