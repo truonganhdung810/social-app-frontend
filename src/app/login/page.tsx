@@ -46,6 +46,9 @@ const Login = () => {
       localStorage.setItem('name', data.user.name)
       localStorage.setItem('avatar', data.user.avatar)
       localStorage.setItem('id', data.user.id)
+      localStorage.setItem('cover', data.user.cover_photo)
+      localStorage.setItem('cover_offsetX', data.user.cover_offsetX)
+      localStorage.setItem('cover_offsetY', data.user.cover_offsetY)
       document.cookie = `token=${data.token}; Path=/; SameSite=Strict; Max-Age=3600;`
       if (data.user.role === 'user') {
         // set token vào cookie, đi tới trang profile

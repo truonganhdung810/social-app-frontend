@@ -4,11 +4,11 @@ import '../cover-image/cover-image.css'
 import { FaCamera } from 'react-icons/fa'
 import PopupMenu from '@/components/cover-image/PopupMenu'
 
-let imgUrl = ''
-let originImg = 'https://images.unsplash.com/photo-1747372248943-33e9064aefab'
-let defaultOffsetY = 0
-let defaultOffsetX = 0
+let originImg = localStorage.getItem('cover') ?? ''
+let defaultOffsetY = localStorage.getItem('cover_offsetX') ?? ''
+let defaultOffsetX = localStorage.getItem('cover_offsetY') ?? ''
 let imageRatio = 1
+let scaleRatio = 1
 export default function CoverImage() {
   // Ảnh cover có 4 trường hợp kích thước:
   // 1200x400 đối với thiết bị trên 1280
@@ -105,7 +105,7 @@ export default function CoverImage() {
         // scale ảnh to lên hoặc nhỏ lại cho bằng height của container, width của ảnh to hơn width của container
         const imgH = fullHeight
         const imgW = (w * fullHeight) / h
-        console.log('Kich thuoc ảnh scale: ' + imgW + ' x ' + imgH)
+        scaleRatio = h / fullHeight
         setImageHeight(imgH)
         setImageWidth(imgW)
         setOffsetY(0)
@@ -116,12 +116,19 @@ export default function CoverImage() {
         setIsDragX(false)
         const imgH = (h * fullWidth) / w
         const imgW = fullWidth
-        console.log('Kich thuoc ảnh scale: ' + imgW + ' x ' + imgH)
+        scaleRatio = w / fullWidth
         setOffsetX(0)
         setImageHeight(imgH)
         setImageWidth(imgW)
       } else {
         // tỉ lệ bằng khoảng 3:1 (cho sai số 5%), ko cần drag ảnh
+        scaleRatio = w / fullWidth
+        setOffsetY(0)
+        setOffsetX(0)
+        setIsDragY(false)
+        setIsDragX(false)
+        setImageHeight(imgH)
+        setImageWidth(imgW)
       }
     }
     imgCom.onerror = () => setError('Failed to load image')
@@ -192,7 +199,6 @@ export default function CoverImage() {
         })
       } else if (isDragX) {
         // Drag theo chiều ngang
-        console.log('Client X', e.clientX)
         const dx = e.clientX - startX
         setStartX(e.clientX)
         // Giới hạn kéo không quá mức ảnh
@@ -247,23 +253,31 @@ export default function CoverImage() {
     const formData = new FormData()
     formData.append('cover-image', fileImage)
 
+    const realOffsetX = scaleRatio * offsetX
+    const realOffsetY = scaleRatio * offsetY
+
     const response = await fetch('http://localhost:4000/api/upload/cover', {
       method: 'POST',
       headers: {
         authorization: `Bearer ${token}`, // Thêm token vào header Authorization
         id: userId,
-        offsetX,
-        offsetY,
+        offsetX: realOffsetX,
+        offsetY: realOffsetY,
       },
       body: formData, // Gửi FormData chứa ảnh
     })
-    const res = response.json()
+    const res = await response.json()
+    if (res.message == 'OK') {
+      localStorage.setItem('cover', res.file.path)
+      localStorage.setItem('cover_offsetX', realOffsetX)
+      localStorage.setItem('cover_offsetY', realOffsetY)
+    }
+
     console.log('Response upload cover', res)
   }
 
   function saveEdit() {
     originImg = coverUrl
-    console.log(offsetY)
     setIsDragX(false)
     setIsDragY(false)
     setIsPreviewCover(false)
