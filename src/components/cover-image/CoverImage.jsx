@@ -1,14 +1,14 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, use } from 'react'
 import '../cover-image/cover-image.css'
 import { FaCamera } from 'react-icons/fa'
 import PopupMenu from '@/components/cover-image/PopupMenu'
+import React, { useContext } from 'react'
+import { UserContext } from '../../context/UserContext'
 
-let originImg = localStorage.getItem('cover') ?? ''
-let defaultOffsetY = localStorage.getItem('cover_offsetX') ?? ''
-let defaultOffsetX = localStorage.getItem('cover_offsetY') ?? ''
-let imageRatio = 1
+let imageRatio = 3
 let scaleRatio = 1
+
 export default function CoverImage() {
   // Ảnh cover có 4 trường hợp kích thước:
   // 1200x400 đối với thiết bị trên 1280
@@ -21,10 +21,60 @@ export default function CoverImage() {
   // Nếu tỉ lệ ảnh nhỏ hơn 3:1 (tức ảnh rộng hơn) chúng ta cố định width, đặt vị trí theo OffsetY (di chuyển dọc)
   // Nếu tỉ lệ ảnh là 3:1, không cần phải đặt vị trí
 
+  // Lấy thông tin User ra từ UserContext
+  const { user } = useContext(UserContext) // Lấy dữ liệu người dùng từ context
+  console.log('data user', user)
+  // let originImg = user.cover // url cover được lưu trong localStorage
+  // let defaultOffsetY = user.cover_offsetY
+  // let defaultOffsetX = user.cover_offsetX
+
+  // Lấy kích thước container-cover
+  useEffect(() => {
+    if (coverContainerRef.current) {
+      const w = coverContainerRef.current.offsetWidth // Lấy chiều rộng container
+      const h = coverContainerRef.current.offsetHeight // Lấy chiều dài container
+      console.log('container: ', w, h)
+      setFullWidth(w)
+      setFullHeight(h)
+      if (defaultOffsetX != 0) {
+        scaleRatio = w / 1200 // chiều rộng của ảnh là 1200
+        setDef
+      } else if (defaultOffsetY != 0) {
+        scaleRatio = h / 1200 // chiều cao của ảnh là 1200
+      } else {
+        scaleRatio = 1
+      }
+      console.log('Scale Ratio', scaleRatio)
+    }
+
+    // Optional: Cập nhật width khi cửa sổ thay đổi kích thước
+    const handleResize = () => {
+      if (coverContainerRef.current) {
+        // Nếu có sự thay đổi width, lập tức hủy bỏ sự thay đổi Cover (đảm bảo hiển thị đẹp của Cover) -> gọi Hàm cancel
+        // Người dùng muốn thay đổi cover, phải giữ nguyên width của thiết bị
+        console.log(
+          'Cover Container Width',
+          coverContainerRef.current.offsetWidth
+        )
+        setOffsetY(defaultOffsetY)
+        setOffsetX(defaultOffsetX)
+        cancelEdit()
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  if (!user) {
+    //quay ra trang Login
+    return
+  }
+
   // useState để lưu file Ảnh Cover được chọn từ máy
   const [fileImage, setFileImage] = useState(null)
   // Url của Cover
-  const [coverUrl, setCoverUrl] = useState(originImg)
+  const [coverUrl, setCoverUrl] = useState(user.cover)
 
   const btnEditCoverRef = useRef(null)
   const coverRef = useRef(null)
@@ -134,35 +184,6 @@ export default function CoverImage() {
     imgCom.onerror = () => setError('Failed to load image')
   }, [coverUrl])
 
-  // Lấy kích thước container-cover
-  useEffect(() => {
-    if (coverContainerRef.current) {
-      const w = coverContainerRef.current.offsetWidth // Lấy chiều rộng container
-      const h = coverContainerRef.current.offsetHeight // Lấy chiều dài container
-      console.log('container: ', w, h)
-      setFullWidth(w)
-      setFullHeight(h)
-    }
-
-    // Optional: Cập nhật width khi cửa sổ thay đổi kích thước
-    const handleResize = () => {
-      if (coverContainerRef.current) {
-        // Nếu có sự thay đổi width, lập tức hủy bỏ sự thay đổi Cover (đảm bảo hiển thị đẹp của Cover) -> gọi Hàm cancel
-        // Người dùng muốn thay đổi cover, phải giữ nguyên width của thiết bị
-        console.log(
-          'Cover Container Width',
-          coverContainerRef.current.offsetWidth
-        )
-        setOffsetY(defaultOffsetY)
-        setOffsetX(defaultOffsetX)
-        cancelEdit()
-      }
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
   // Các hàm để thực hiện kéo thả vị trí cho ảnh Cover (dùng trên desktop, các hàm trên mobile phải set riêng)
   // Set 3 hàm này truyền vào cover-container để bắt sự kiện click, kéo, thả của chuột
   // chỉ thực hiện khi đang preview ảnh Cover, isPreviewCover=true
@@ -268,7 +289,7 @@ export default function CoverImage() {
     })
     const res = await response.json()
     if (res.message == 'OK') {
-      localStorage.setItem('cover', res.file.path)
+      localStorage.setItem('cover', res.fileUrl)
       localStorage.setItem('cover_offsetX', realOffsetX)
       localStorage.setItem('cover_offsetY', realOffsetY)
     }

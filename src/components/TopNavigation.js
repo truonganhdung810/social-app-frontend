@@ -7,10 +7,13 @@ const TopNavigation = () => {
   const defaultAvatar = '/avatar.jpg'
   const [name, setName] = useState('')
   const [avatar, setAvatar] = useState(defaultAvatar)
+  const [id, setId] = useState(null)
 
   useEffect(() => {
     // Giả sử dữ liệu user được lưu trong localStorage
+
     setName(localStorage.getItem('name'))
+    setId(localStorage.getItem(id))
     if (!localStorage.getItem('avatar'))
       setAvatar(localStorage.getItem('avatar'))
   }, [name, avatar])

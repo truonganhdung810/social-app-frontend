@@ -4,14 +4,12 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import '../../styles/login.css'
-import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useRouter } from 'next/navigation'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [token, setToken] = useState('')
   const router = useRouter()
 
   useEffect(() => {
@@ -40,23 +38,26 @@ const Login = () => {
         toast.error(data.message || 'Login failed')
         return
       }
-      console.log(data.user.role)
-      setToken(data.token)
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('name', data.user.name)
-      localStorage.setItem('avatar', data.user.avatar)
-      localStorage.setItem('id', data.user.id)
-      localStorage.setItem('cover', data.user.cover_photo)
-      localStorage.setItem('cover_offsetX', data.user.cover_offsetX)
-      localStorage.setItem('cover_offsetY', data.user.cover_offsetY)
-      document.cookie = `token=${data.token}; Path=/; SameSite=Strict; Max-Age=3600;`
       if (data.user.role === 'user') {
-        // set token vào cookie, đi tới trang profile
+        //lưu dữ liệu user vào Local Storate
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('name', data.user.name)
+        localStorage.setItem('id', data.user.id)
+        localStorage.setItem('email', data.user.email)
+        localStorage.setItem('role', data.user.role)
+        localStorage.setItem('avatar', data.user.avatar)
+        localStorage.setItem('ava_offsetX', data.user.ava_offsetX)
+        localStorage.setItem('ava_offsetY', data.user.ava_offsetY)
+        localStorage.setItem('ava_width', data.user.ava_width)
+        localStorage.setItem('cover', data.user.cover_photo)
+        localStorage.setItem('cover_offsetX', data.user.cover_offsetX)
+        localStorage.setItem('cover_offsetY', data.user.cover_offsetY)
+
+        //đi tới trang home
         router.push('/')
-        toast.success(data.message)
       } else if (data.user.role === 'admin') {
         // Đi tới trang admin
-        toast.success(data.message)
+        router.push('/admin')
       }
     } catch (err) {
       toast.error('Failed to connect to the server!')
@@ -96,7 +97,6 @@ const Login = () => {
           </p>
         </form>
       </div>
-      <ToastContainer position="bottom-right" autoClose={3000} />;
     </div>
   )
 }

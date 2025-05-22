@@ -1,14 +1,15 @@
 // app/page.tsx
 // Nhập layout.tsx để sử dụng layout trong trang này
-
-import GetToken from '../components/GetToken'
+'use client'
+import { useState, useRef, useEffect } from 'react'
+import GetAllUsers from '../components/GetAllUsers'
 import TopNavigation from '../components/TopNavigation'
 
 export default function Home() {
   return (
     <div>
-      <GetToken />
       <TopNavigation />
+      <GetAllUsers />
     </div>
   )
 }

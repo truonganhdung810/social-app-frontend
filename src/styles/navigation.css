@@ -4,6 +4,7 @@ body {
 
 /* Navbar styles */
 .navbar {
+  width: 1200px;
   background-color: #ffffff;
   padding-left: 10px;
   padding-right: 10px;
@@ -57,4 +58,23 @@ body {
 .nav-item a:hover {
   background-color: #555;
   color: #fff;
+}
+
+@media (max-width: 1280px) {
+  .navbar {
+    width: 750px;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    width: 100%;
+    min-width: 350px;
+  }
 }
