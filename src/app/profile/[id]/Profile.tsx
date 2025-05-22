@@ -1,16 +1,13 @@
 // src/pages/ProfilePage.js
-
-import { useContext } from 'react'
-import CoverImage from '../../../components/cover-image/CoverImage'
-import { UserContext } from '@/context/UserContext'
-import Cover from './Cover'
+"use client";
+import CoverImage from "../cover-image/CoverImage";
 
 const ProfilePage = () => {
   return (
     <div>
-      <Cover />
+      <CoverImage />
     </div>
-  )
-}
+  );
+};
 
-export default ProfilePage
+export default ProfilePage;
