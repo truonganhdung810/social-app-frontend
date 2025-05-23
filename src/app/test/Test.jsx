@@ -10,34 +10,17 @@ const CoverImage = ({ imageSrc }) => {
   const imageRef = useRef(null);
 
   const handleMouseDown = (e) => {
-    console.log("mouse down", e.clientX, e.clientY);
+    console.log("Mouse down");
     setDragging(true);
   };
 
   const handleMouseUp = () => {
+    console.log("Mouse up");
     setDragging(false);
   };
 
   const handleMouseMove = (e) => {
     if (dragging) {
-      const container = containerRef.current;
-      const image = imageRef.current;
-
-      // Get the container's bounds
-      const containerRect = container.getBoundingClientRect();
-
-      // Calculate the new offset values, preventing the image from going out of bounds
-      let newOffsetX = e.clientX - containerRect.left;
-      let newOffsetY = e.clientY - containerRect.top;
-
-      const maxOffsetX = Math.max(0, image.width - containerRect.width);
-      const maxOffsetY = Math.max(0, image.height - containerRect.height);
-
-      newOffsetX = Math.min(Math.max(newOffsetX, 0), maxOffsetX);
-      newOffsetY = Math.min(Math.max(newOffsetY, 0), maxOffsetY);
-
-      setOffsetX(newOffsetX);
-      setOffsetY(newOffsetY);
     }
   };
 
@@ -55,17 +38,28 @@ const CoverImage = ({ imageSrc }) => {
 
   return (
     <div
-      ref={containerRef}
       style={{
-        width: "1200px",
+        background: "red",
+        overflow: "hidden",
+        position: "relative",
       }}
     >
+      <img
+        ref={imageRef}
+        src={imageSrc}
+        alt="Cover"
+        style={{
+          position: "absolute",
+          transition: dragging ? "none" : "top 0.2s, left 0.2s",
+        }}
+      />
       <div
         style={{
           width: "100%",
           height: "300px",
           overflow: "hidden",
           position: "relative",
+          background: "rgba(255, 255, 255, 0)",
           cursor: dragging ? "grabbing" : "grab",
         }}
         onMouseDown={handleMouseDown}
@@ -73,16 +67,6 @@ const CoverImage = ({ imageSrc }) => {
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
       ></div>
-      <img
-        src={imageSrc}
-        alt="Cover"
-        style={{
-          position: "absolute",
-          top: -offsetY,
-          left: -offsetX,
-          transition: dragging ? "none" : "top 0.2s, left 0.2s",
-        }}
-      />
     </div>
   );
 };
