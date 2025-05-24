@@ -1,90 +1,68 @@
-"use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-const CoverImage = ({ imageSrc }) => {
+const DragNewCoverImage = ({
+  imgSrc,
+  width,
+  height,
+  offsetX,
+  offsetY,
+  windowWidth,
+}) => {
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
-  const [dragging, setDragging] = useState(false);
-
-  const containerRef = useRef(null);
-  const imageRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
 
   const handleMouseDown = (e) => {
-    console.log("mouse down", e.clientX, e.clientY);
-    setDragging(true);
-  };
-
-  const handleMouseUp = () => {
-    setDragging(false);
+    setIsDragging(true);
+    setStartPos({ x: e.clientX, y: e.clientY });
   };
 
   const handleMouseMove = (e) => {
-    if (dragging) {
-      const container = containerRef.current;
-      const image = imageRef.current;
+    if (!isDragging) return;
 
-      // Get the container's bounds
-      const containerRect = container.getBoundingClientRect();
+    const dx = e.clientX - startPos.x;
+    const dy = e.clientY - startPos.y;
 
-      // Calculate the new offset values, preventing the image from going out of bounds
-      let newOffsetX = e.clientX - containerRect.left;
-      let newOffsetY = e.clientY - containerRect.top;
+    setOffsetX((prev) => prev + dx);
+    setOffsetY((prev) => prev + dy);
 
-      const maxOffsetX = Math.max(0, image.width - containerRect.width);
-      const maxOffsetY = Math.max(0, image.height - containerRect.height);
-
-      newOffsetX = Math.min(Math.max(newOffsetX, 0), maxOffsetX);
-      newOffsetY = Math.min(Math.max(newOffsetY, 0), maxOffsetY);
-
-      setOffsetX(newOffsetX);
-      setOffsetY(newOffsetY);
-    }
+    setStartPos({ x: e.clientX, y: e.clientY });
   };
 
-  useEffect(() => {
-    // Add event listeners for dragging
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-
-    // Clean up event listeners on component unmount
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [dragging]);
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
 
   return (
     <div
-      ref={containerRef}
       style={{
-        width: "1200px",
+        width: "100%",
+        height: "33vw", // tỉ lệ 1:3 như Facebook
+        overflow: "hidden",
+        position: "relative",
+        border: "1px solid #ccc",
+        cursor: "grab",
       }}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+      onMouseDown={handleMouseDown}
     >
-      <div
-        style={{
-          width: "100%",
-          height: "300px",
-          overflow: "hidden",
-          position: "relative",
-          cursor: dragging ? "grabbing" : "grab",
-        }}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-      ></div>
       <img
-        src={imageSrc}
+        src={imgSrc}
         alt="Cover"
+        draggable={false}
         style={{
           position: "absolute",
-          top: -offsetY,
-          left: -offsetX,
-          transition: dragging ? "none" : "top 0.2s, left 0.2s",
+          left: offsetX,
+          top: offsetY,
+          width: width,
+          height: height,
+          userSelect: "none",
         }}
       />
     </div>
   );
 };
-
-export default CoverImage;
+export default DragNewCoverImage;

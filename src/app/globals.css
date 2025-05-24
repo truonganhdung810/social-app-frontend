@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 :root {
   --background: #ffffff;
@@ -37,14 +37,13 @@ body {
   }
 }
 
-@media (max-width: 1200px) {
-  /* Các thuộc tính cho tablet */
-}
-
-@media (max-width: 1000px) {
-  /* Các thuộc tính cho tablet */
-}
-
 @media (max-width: 780px) {
   /* Các thuộc tính cho tablet */
+}
+
+@media (max-width: 480px) {
+  /* Các thuộc tính cho tablet */
+  body {
+    min-width: 350px;
+  }
 }

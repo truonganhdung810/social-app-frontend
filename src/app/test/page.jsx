@@ -1,62 +1,75 @@
-'use client'
-import React, { useState, useEffect, useRef } from 'react'
-import WindowWidth from './windowWidth'
-import CoverImage from './CoverImage'
-import './test.css'
+"use client";
+import React, { useState, useEffect, useRef } from "react";
+import CoverImage from "./CoverImage";
+import PopupMenu from "./PopupMenu";
+import DragNewCoverImage from "./DragNewCoverImage";
 
 const ProfilePage = () => {
-  const coverData = useRef({
-    src: 'http://localhost:4000/uploads/images/1747905600514.jpg',
+  const coverData = {
+    src: "http://localhost:4000/uploads/images/1747939444999.jpg",
     width: 1200,
-    height: 800,
-    offsetX: 0,
+    height: 300,
+    offsetX: 50,
     offsetY: 0,
-  })
-  const newWidth = window.innerWidth
-  let w = newWidth < 1200 ? newWidth : 1200
-  const [windowWidth, setWindowWidth] = useState(w)
+  };
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [isShowPopupMenu, setIsShowPopupMenu] = useState(false);
+  const btnEditCoverRef = useRef();
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [compressedData, setCompressedData] = useState(null);
 
-  console.log(coverData.width)
-
-  const handleResize = () => {
-    const newWidth = window.innerWidth
-    setWindowWidth(newWidth < 1200 ? newWidth : 1200)
-  }
-
-  // Sử dụng useEffect để gắn sự kiện resize khi component được mount
   useEffect(() => {
-    // Gắn sự kiện resize
-    window.addEventListener('resize', handleResize)
+    const handleResize = () => {
+      const newWidth = window.innerWidth;
+      let w = newWidth < 1200 ? newWidth : 1200;
+      if (w < 350) w = 350;
+      setWindowWidth(w);
+    };
+    handleResize(); // Lấy giá trị ban đầu
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-    // Dọn dẹp sự kiện khi component bị unmount
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, []) // Chạy một lần khi component mount
+  const clickBtnEditCover = () => {
+    setIsShowPopupMenu(!isShowPopupMenu);
+  };
 
   return (
     <div className="main-container" style={{ width: `${windowWidth}px` }}>
       <div className="top-navigation">
         <h1>Top Navigation</h1>
       </div>
-      <div
-        className="cover-image"
-        style={{
-          width: `${windowWidth}px`,
-          height: `${windowWidth / 3}px`,
-        }}
-      >
-        <CoverImage
-          imgSrc={coverData.current.src}
-          width={coverData.current.width}
-          height={coverData.current.height}
-          offsetX={coverData.current.offsetX}
-          offsetY={coverData.current.offsetY}
-          windowWidth={1200}
-        ></CoverImage>
+      <CoverImage
+        imageData={coverData}
+        windowWidth={windowWidth}
+        btnEditCoverRef={btnEditCoverRef}
+        clickBtnEditCover={clickBtnEditCover}
+      ></CoverImage>
+
+      {previewUrl && compressedData && (
+        <DragNewCoverImage
+          imgSrc={previewUrl}
+          width={compressedData.width}
+          height={compressedData.height}
+          offsetX={compressedData.offsetX}
+          offsetY={compressedData.offsetY}
+          windowWidth={windowWidth}
+        />
+      )}
+
+      <div className="vitri-popup">
+        {isShowPopupMenu && (
+          <PopupMenu
+            isOpen={isShowPopupMenu}
+            setIsOpen={setIsShowPopupMenu}
+            buttonRef={btnEditCoverRef}
+            setPreviewUrl={setPreviewUrl}
+            setCompressedData={setCompressedData}
+          />
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProfilePage
+export default ProfilePage;
