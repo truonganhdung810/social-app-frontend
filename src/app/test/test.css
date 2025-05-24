@@ -1,0 +1,27 @@
+.container {
+  width: 100%; /* Chiếm toàn bộ chiều rộng của cửa sổ */
+  max-width: 1200px; /* Giới hạn chiều rộng tối đa nếu cần */
+}
+
+.top-navigation {
+  background-color: rgb(255, 0, 0); /* Màu nền cho Top Navigation */
+  padding: 20px;
+  text-align: center;
+  width: 100%; /* Chiếm toàn bộ chiều rộng của container */
+  height: 50px;
+}
+
+.cover-image {
+  position: relative;
+  width: 100%; /* Chiếm toàn bộ chiều rộng của container */
+  overflow: hidden;
+  border-width: 5px;
+  border-color: aqua;
+}
+
+.cover-image img {
+  position: absolute;
+  width: 100%;
+  /* Chiếm toàn bộ chiều cao của phần tử chứa */
+  object-fit: cover; /* Đảm bảo ảnh không bị méo và phủ toàn bộ */
+}

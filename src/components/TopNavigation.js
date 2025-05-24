@@ -20,6 +20,7 @@ const TopNavigation = () => {
 
   return (
     <nav className="navbar">
+      <div className="nav-full-width"></div>
       <ul className="nav-list">
         <li className="nav-item">
           <Link className="social-app-link" href="/">

@@ -1,14 +1,14 @@
-"use client";
-import TopNavigation from "@/components/TopNavigation";
-import { useRouter } from "next/navigation";
-import * as React from "react";
-import { useEffect } from "react";
-import Profile from "./Profile";
-import { UserProvider } from "@/context/UserContext";
-import AuthGuard from "../../../components/AuthGuard";
+'use client'
+import TopNavigation from '@/components/TopNavigation'
+import { useRouter } from 'next/navigation'
+import * as React from 'react'
+import { useEffect } from 'react'
+import Profile from './Profile'
+import { UserProvider } from '@/context/UserContext'
+import AuthGuard from '../../../components/AuthGuard'
 
 function ProfilePage({ params }) {
-  const { id } = React.use(params);
+  const { id } = React.use(params)
 
   //   // asynchronous access of `params.id`.
   //   const { id } = React.use(params)
@@ -54,11 +54,11 @@ function ProfilePage({ params }) {
       <UserProvider>
         <AuthGuard>
           <TopNavigation />
-          <Profile />
+          {/* <Profile /> */}
         </AuthGuard>
       </UserProvider>
     </div>
-  );
+  )
 }
 
-export default ProfilePage;
+export default ProfilePage

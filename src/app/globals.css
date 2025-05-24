@@ -1,17 +1,26 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
+html,
 body {
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0; /* Loại bỏ margin mặc định */
+  padding: 0; /* Loại bỏ padding mặc định */
+  display: flex; /* Sử dụng flexbox để căn giữa */
+  justify-content: center; /* Căn giữa phần tử theo chiều ngang */
+  height: 100vh; /* Đảm bảo body chiếm toàn bộ chiều cao cửa sổ trình duyệt */
+}
+
+.main-container {
+  width: 1200px;
   display: flex;
-  justify-content: center;
-  width: 900px; /* Giới hạn chiều rộng của body */
-  margin: 0 auto; /* Căn giữa body trong cửa sổ trình duyệt */
-  background-color: #812a2a;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
 }
 
 @theme inline {
@@ -29,22 +38,13 @@ body {
 }
 
 @media (max-width: 1200px) {
-  /* CSS cho mobile */
-  body {
-    width: 900px;
-  }
-}
-@media (max-width: 767px) {
-  /* CSS cho mobile */
-  body {
-    width: 100%; /* Đặt chiều rộng bằng 100% */
-  }
+  /* Các thuộc tính cho tablet */
 }
 
-@media (max-width: 480px) {
-  /* Các thuộc tính cho điện thoại di động */
-  body {
-    width: 100%; /* Đặt chiều rộng bằng 100% */
-    min-width: 350px;
-  }
+@media (max-width: 1000px) {
+  /* Các thuộc tính cho tablet */
+}
+
+@media (max-width: 780px) {
+  /* Các thuộc tính cho tablet */
 }
