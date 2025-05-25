@@ -1,5 +1,7 @@
+// Đây là component hiển thị new Cover Photo và cho người dùng kéo thả để chọn vị trí cho cover mới
+
 import React, { useState, useEffect, useRef } from "react";
-import "./dragnewcover.css";
+import "./styles/drag-new-cover.css";
 
 const DragNewCoverImage = ({
   newCoverData,

@@ -3,7 +3,7 @@
 // kèm thêm 1 useState cập nhật thông tin chiều rộng Window
 import React, { useState, useEffect, useRef } from "react";
 import { FaCamera } from "react-icons/fa";
-import "./test.css";
+import "./styles/cover-image.css";
 
 const CoverImage = ({
   imageData,
