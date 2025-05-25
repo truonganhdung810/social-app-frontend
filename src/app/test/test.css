@@ -22,7 +22,6 @@
 
 .cover-image img {
   position: absolute;
-  width: 100%;
   /* Chiếm toàn bộ chiều cao của phần tử chứa */
   object-fit: cover; /* Đảm bảo ảnh không bị méo và phủ toàn bộ */
 }

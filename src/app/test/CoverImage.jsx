@@ -1,35 +1,36 @@
 // Đây là Component để hiển thị Cover Photo của user
 // Đầu vào được truyền vào props là 1 Object có chứa thông tin của Ảnh Cover,
 // kèm thêm 1 useState cập nhật thông tin chiều rộng Window
-import React, { useState, useEffect, useRef } from "react";
-import { FaCamera } from "react-icons/fa";
-import "./test.css";
+import React, { useState, useEffect, useRef } from 'react'
+import { FaCamera } from 'react-icons/fa'
+import './test.css'
 
 const CoverImage = ({
   imageData,
+  setCoverData,
   windowWidth,
   btnEditCoverRef,
   clickBtnEditCover,
 }) => {
-  const { src, width, height, offsetX, offsetY } = imageData;
-  const [scaleRatio, setScaleRatio] = useState(1);
+  const { src, width, height, offsetX, offsetY } = imageData
+  const [scaleRatio, setScaleRatio] = useState(1)
 
   useEffect(() => {
     if (width && windowWidth) {
-      const ratio = Math.max(windowWidth / width, windowWidth / 3 / height);
-      console.log("Scale", ratio, windowWidth);
-      setScaleRatio(ratio);
+      const ratio = Math.max(windowWidth / width, windowWidth / 3 / height)
+      console.log('Scale', ratio, windowWidth)
+      setScaleRatio(ratio)
     }
-  }, [width, windowWidth]);
+  }, [width, windowWidth])
 
   return (
     <div
       className="cover-image"
       style={{
-        position: "relative",
+        position: 'relative',
         width: `${windowWidth}px`,
         height: `${windowWidth / 3}px`,
-        overflow: "hidden",
+        overflow: 'hidden',
       }}
     >
       <img
@@ -37,12 +38,12 @@ const CoverImage = ({
         style={{
           width: `${width * scaleRatio}px`,
           height: `${height * scaleRatio}px`,
-          maxWidth: "none",
-          transform: `translate(${-offsetX * scaleRatio}px, ${
-            -offsetY * scaleRatio
+          maxWidth: 'none',
+          transform: `translate(${offsetX * scaleRatio}px, ${
+            offsetY * scaleRatio
           }px)`,
-          position: "absolute",
-          objectFit: "cover",
+          position: 'absolute',
+          objectFit: 'cover',
         }}
       ></img>
       <button
@@ -54,7 +55,7 @@ const CoverImage = ({
         <div className="btn-edit-cover-text"> Edit Cover </div>
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default CoverImage;
+export default CoverImage
