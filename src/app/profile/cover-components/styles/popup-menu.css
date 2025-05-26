@@ -8,6 +8,7 @@
   width: 180px;
   overflow: hidden;
   font-family: sans-serif;
+  z-index: 99999;
 }
 
 .popup-menu-item {
