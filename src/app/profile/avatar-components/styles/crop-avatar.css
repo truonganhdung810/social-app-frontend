@@ -1,16 +1,4 @@
-.confirm-change {
-  z-index: 9999;
-  width: 100%;
-  height: 50px;
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.drag-cover-text-group {
+.crop-text-group {
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -18,15 +6,14 @@
   gap: 10px;
 }
 
-.drag-cover-btn-group {
+.crop-button-group {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
 }
-
-.btn-cancel {
+.crop-btn-cancel {
   background-color: rgb(33, 33, 33, 0.8);
   color: white;
   border: none;
@@ -36,14 +23,13 @@
   padding-right: 30px;
   padding-top: 5px;
   padding-bottom: 5px;
-  margin-right: 5px;
 }
 
-.btn-cancel:hover {
+.crop-btn-cancel:hover {
   background-color: #222;
 }
 
-.btn-save {
+.crop-btn-save {
   background-color: rgb(55, 168, 102);
   color: white;
   border: none;
@@ -56,6 +42,6 @@
   padding-bottom: 5px;
 }
 
-.btn-save:hover {
+.crop-btn-save:hover {
   background-color: rgb(44, 134, 81);
 }

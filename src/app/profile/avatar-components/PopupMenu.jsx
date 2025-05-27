@@ -11,7 +11,7 @@ export default function PopupMenu({
   setIsOpen,
   buttonRef,
   setIsShowPopupCropAva,
-  setNewAvatarData,
+  setCropAvatarData,
 }) {
   const fileInputRef = useRef(null)
 
@@ -33,7 +33,7 @@ export default function PopupMenu({
     try {
       const newAvatar = await compressAvatar(file)
       console.log('New Aavatar Data', newAvatar)
-      setNewAvatarData((prevData) => ({
+      setCropAvatarData((prevData) => ({
         ...prevData, // Sao chép dữ liệu cũ
         file: newAvatar.file, // Cập nhật file mới
         src: newAvatar.src, // Cập nhật src mới

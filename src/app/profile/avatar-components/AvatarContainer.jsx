@@ -3,18 +3,37 @@ import './styles/avatar-container.css'
 import PopupMenu from './PopupMenu'
 import { useState, useRef, useEffect } from 'react'
 import CropAvatar from './CropAvatar'
+import ImageAvatar from './ImageAvatar'
 
-const AvatarContainer = ({ windowWidth, windowHeight }) => {
-  const [isShowPopupCropAva, setIsShowPopupCropAva] = useState(false)
+const AvatarContainer = ({
+  windowWidth,
+  isShowPopupCropAva,
+  setIsShowPopupCropAva,
+}) => {
+  const src = localStorage.getItem('avatar')
+  // Tách chuỗi từ phần '_size'
+  const sizePart = src.split('_size')[1]
+  const dimensions = sizePart.split('.')[0].split('x')
+
+  // Lấy width và height
+  const width = parseInt(dimensions[0], 10)
+  const height = parseInt(dimensions[1], 10)
+
+  const rOffsetX = localStorage.getItem('ava_offsetX')
+  const rOffsetY = localStorage.getItem('ava_offsetY')
+  const cropWidth = localStorage.getItem('ava_width')
+
   const [isShowPopupMenu, setIsShowPopupMenu] = useState(false)
-  const [newAvatarData, setNewAvatarData] = useState({
-    src: '',
-    width: 0,
-    height: 0,
-    rOffsetX: 0,
-    rOffsetY: 0,
-    cropWidth: 180,
+  const [userAvaData, setUserAvaData] = useState({
+    src,
+    width,
+    height,
+    rOffsetX,
+    rOffsetY,
+    cropWidth,
   })
+  const [cropAvatarData, setCropAvatarData] = useState({})
+  console.log(userAvaData)
   const buttonRef = useRef()
   const clickEditAvatar = () => {
     setIsShowPopupMenu(!isShowPopupMenu)
@@ -24,19 +43,16 @@ const AvatarContainer = ({ windowWidth, windowHeight }) => {
     <div style={{ position: 'relative', pointerEvents: 'none' }}>
       {isShowPopupCropAva && (
         <CropAvatar
-          avaData={newAvatarData}
+          isShowPopupCropAva={isShowPopupCropAva}
+          setIsShowPopupCropAva={setIsShowPopupCropAva}
+          cropAvaData={cropAvatarData}
+          setUserAvaData={setUserAvaData}
           windowWidth={windowWidth}
         ></CropAvatar>
       )}
       <div className="avatar-container" style={{ width: `${windowWidth}px` }}>
         <div className="group-button">
-          <div className="img-container">
-            <img
-              className="avatar-img"
-              src="https://i.pinimg.com/736x/2f/57/79/2f5779092e30a4b4288a083ec450202f.jpg"
-              alt="Avatar"
-            />
-          </div>
+          <ImageAvatar avatarData={userAvaData}></ImageAvatar>
           <button className="button-edit-avatar" ref={buttonRef}>
             <FaCamera className="camera" onClick={clickEditAvatar} />
           </button>
@@ -46,7 +62,7 @@ const AvatarContainer = ({ windowWidth, windowHeight }) => {
               setIsOpen={setIsShowPopupMenu}
               buttonRef={buttonRef}
               setIsShowPopupCropAva={setIsShowPopupCropAva}
-              setNewAvatarData={setNewAvatarData}
+              setCropAvatarData={setCropAvatarData}
             />
           )}
         </div>

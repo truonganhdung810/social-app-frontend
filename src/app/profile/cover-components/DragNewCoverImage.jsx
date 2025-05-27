@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import './styles/drag-new-cover.css'
+import { RiDragMove2Fill } from 'react-icons/ri'
 
 const DragNewCoverImage = ({
   newCoverData,
@@ -138,12 +139,30 @@ const DragNewCoverImage = ({
       onMouseDown={handleMouseDown}
     >
       <div className="confirm-change">
-        <button className="btn-cancel" onClick={cancelEdit}>
-          Cancel
-        </button>
-        <button className="btn-save" onClick={saveEdit}>
-          Save changes
-        </button>
+        <div className="drag-cover-text-group">
+          <RiDragMove2Fill
+            className="crop-icon"
+            style={{
+              color: 'white',
+              marginLeft: '20px',
+              transform: 'scale(1.5)',
+            }}
+          />
+          <span
+            className="crop-text"
+            style={{ color: 'white', marginLeft: '5px' }}
+          >
+            "Click and drag to crop your cover photo"
+          </span>
+        </div>
+        <div className="drag-cover-btn-group">
+          <button className="btn-cancel" onClick={cancelEdit}>
+            Cancel
+          </button>
+          <button className="btn-save" onClick={saveEdit}>
+            Save changes
+          </button>
+        </div>
       </div>
 
       <img
