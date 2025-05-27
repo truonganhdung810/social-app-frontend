@@ -7,7 +7,10 @@ import PopupMenu from "./PopupMenu";
 import DragNewCoverImage from "./DragNewCoverImage";
 
 const CoverContainer = ({ windowWidth }) => {
-  const src = localStorage.getItem("cover");
+  const src =
+    localStorage.getItem("cover") === "null"
+      ? "/default_cover_size1200x400.png"
+      : localStorage.getItem("cover");
   // Tách chuỗi từ phần '_size'
   const sizePart = src.split("_size")[1];
   const dimensions = sizePart.split(".")[0].split("x");
