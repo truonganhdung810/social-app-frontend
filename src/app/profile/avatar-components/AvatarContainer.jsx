@@ -1,34 +1,34 @@
-import { FaCamera } from 'react-icons/fa'
-import './styles/avatar-container.css'
-import PopupMenu from './PopupMenu'
-import { useState, useRef, useEffect } from 'react'
-import CropAvatar from './CropAvatar'
-import ImageAvatar from './ImageAvatar'
+import { FaCamera } from "react-icons/fa";
+import "./styles/avatar-container.css";
+import PopupMenu from "./PopupMenu";
+import { useState, useRef, useEffect } from "react";
+import CropAvatar from "./TestCrop";
+import ImageAvatar from "./ImageAvatar";
 
 const AvatarContainer = ({
   windowWidth,
   isShowPopupCropAva,
   setIsShowPopupCropAva,
 }) => {
-  let src = localStorage.getItem('avatar')
-  let cropWidth = localStorage.getItem('ava_width')
-  if (src === 'null') {
-    src = '/default-avatar_size200x200.jpg'
-    cropWidth = 200
+  let src = localStorage.getItem("avatar");
+  let cropWidth = localStorage.getItem("ava_width");
+  if (src === "null") {
+    src = "/default-avatar_size200x200.jpg";
+    cropWidth = 200;
   }
   // Tách chuỗi từ phần '_size'
-  const sizePart = src.split('_size')[1]
-  const dimensions = sizePart.split('.')[0].split('x')
+  const sizePart = src.split("_size")[1];
+  const dimensions = sizePart.split(".")[0].split("x");
 
   // Lấy width và height
-  const width = parseInt(dimensions[0], 10)
-  const height = parseInt(dimensions[1], 10)
+  const width = parseInt(dimensions[0], 10);
+  const height = parseInt(dimensions[1], 10);
 
-  const rOffsetX = localStorage.getItem('ava_offsetX')
-  const rOffsetY = localStorage.getItem('ava_offsetY')
-  const userName = localStorage.getItem('name')
+  const rOffsetX = localStorage.getItem("ava_offsetX");
+  const rOffsetY = localStorage.getItem("ava_offsetY");
+  const userName = localStorage.getItem("name");
 
-  const [isShowPopupMenu, setIsShowPopupMenu] = useState(false)
+  const [isShowPopupMenu, setIsShowPopupMenu] = useState(false);
   const [userAvaData, setUserAvaData] = useState({
     src,
     width,
@@ -36,16 +36,16 @@ const AvatarContainer = ({
     rOffsetX,
     rOffsetY,
     cropWidth,
-  })
-  const [cropAvatarData, setCropAvatarData] = useState({})
-  console.log(userAvaData)
-  const buttonRef = useRef()
+  });
+  const [cropAvatarData, setCropAvatarData] = useState({});
+  console.log(userAvaData);
+  const buttonRef = useRef();
   const clickEditAvatar = () => {
-    setIsShowPopupMenu(!isShowPopupMenu)
-  }
+    setIsShowPopupMenu(!isShowPopupMenu);
+  };
 
   return (
-    <div style={{ position: 'relative', pointerEvents: 'none' }}>
+    <div style={{ position: "relative", pointerEvents: "none" }}>
       {isShowPopupCropAva && (
         <CropAvatar
           isShowPopupCropAva={isShowPopupCropAva}
@@ -76,7 +76,7 @@ const AvatarContainer = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AvatarContainer
+export default AvatarContainer;
