@@ -3,6 +3,7 @@
 import CoverContainer from '../cover-components/CoverContainer'
 import AvatarContainer from '../avatar-components/AvatarContainer'
 import React, { useState, useEffect, useRef } from 'react'
+import ProfileContainer from '../content-components/ProfileContainer'
 
 const ProfileLayout = () => {
   const [windowWidth, setWindowWidth] = useState(0)
@@ -39,6 +40,9 @@ const ProfileLayout = () => {
           isShowPopupCropAva={isShowPopupCropAva}
           setIsShowPopupCropAva={setIsShowPopupCropAva}
         ></AvatarContainer>
+        <div className="mt-16">
+          <ProfileContainer></ProfileContainer>
+        </div>
       </div>
     </div>
   )

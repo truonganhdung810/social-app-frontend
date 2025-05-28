@@ -1,0 +1,105 @@
+.profile-create-post-modal {
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  margin: auto;
+  margin-bottom: 20px;
+  font-family: sans-serif;
+}
+
+.profile-create-post-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.profile-create-post-select-visibility {
+  font-weight: normal;
+  font-size: 16px;
+  border-width: 1px;
+}
+
+.profile-create-post-textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: none;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  margin-top: 16px;
+}
+
+.profile-create-post-preview-image-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-create-post-preview-image {
+  width: 100%;
+  height: 100%;
+  max-height: 500px;
+  border: 2px dashed #ccc;
+  border-color: rgb(168, 168, 168);
+  padding: 4px;
+  object-fit: scale-down;
+}
+.profile-create-post-btn-delete-preview {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  scale: 1.5;
+  color: #929292;
+}
+
+.profile-create-post-btn-delete-preview:hover {
+  color: #d3d3d3;
+}
+.profile-create-post-group-button {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.profile-create-post-btn-add-image {
+  flex: 1;
+  display: flex;
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #e4e6eb;
+  cursor: auto;
+  align-items: center;
+  justify-content: center;
+  color: rgb(55, 168, 102);
+}
+
+.profile-create-post-btn-add-image:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(44, 134, 81);
+}
+
+.profile-submit-post-button {
+  flex: 9;
+  display: flex;
+  margin-top: 12px;
+  background-color: #e4e6eb;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  color: #666;
+  font-weight: bold;
+  cursor: not-allowed;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-submit-post-button:hover {
+  scale: 1.01;
+}

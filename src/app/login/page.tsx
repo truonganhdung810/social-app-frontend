@@ -35,7 +35,7 @@ const Login = () => {
       const data = await response.json()
 
       if (!response.ok) {
-        toast.error(data.message || 'Login failed')
+        console.log(data.message || 'Login failed')
         return
       }
       if (data.user.role === 'user') {
@@ -60,7 +60,7 @@ const Login = () => {
         router.push('/admin')
       }
     } catch (err) {
-      toast.error('Failed to connect to the server!')
+      console.log('Failed to connect to the server!')
     }
   }
 
