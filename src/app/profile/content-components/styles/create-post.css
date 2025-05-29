@@ -10,8 +10,6 @@
 }
 
 .profile-create-post-header {
-  display: flex;
-  justify-content: space-between;
   font-weight: bold;
   font-size: 18px;
   padding-bottom: 12px;
@@ -23,6 +21,7 @@
   font-size: 16px;
   border-width: 1px;
   border-radius: 4px;
+  margin-left: 10px;
 }
 
 .profile-create-post-textarea {

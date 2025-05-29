@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -10,15 +10,50 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0; /* Loại bỏ margin mặc định */
   padding: 0; /* Loại bỏ padding mặc định */
-  display: flex; /* Sử dụng flexbox để căn giữa */
   justify-content: center; /* Căn giữa phần tử theo chiều ngang */
   height: 100vh; /* Đảm bảo body chiếm toàn bộ chiều cao cửa sổ trình duyệt */
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 100;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: green;
+  text-decoration: none;
+}
+
+.logo:hover {
+  text-decoration: underline;
+}
+
+.nav-links a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-links a:hover {
+  color: green;
 }
 
 .main-container {
   width: 1200px;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   height: 100vh;
 }

@@ -1,7 +1,8 @@
 import { useRef } from 'react'
 
-const ImageAvatar = ({ avatarData, dislaySize }) => {
-  const { src, width, height, rOffsetX, rOffsetY, cropWidth } = avatarData
+const ImageAvatar = ({ userAvaData, dislaySize }) => {
+  const { src, width, height, rOffsetX, rOffsetY, cropWidth } = userAvaData
+
   console.log('Nhận vào avatar', {
     width,
     height,
@@ -42,7 +43,6 @@ const ImageAvatar = ({ avatarData, dislaySize }) => {
         height: `${dislaySize}px`,
         borderRadius: '50%',
         overflow: 'hidden',
-        border: '5px solid rgb(255, 255, 255)',
         backgroundColor: '#f0f0f0',
       }}
     >

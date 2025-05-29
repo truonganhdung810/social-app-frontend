@@ -1,10 +1,15 @@
 import React from 'react'
 import './styles/postitem.css'
 import { FiDelete } from 'react-icons/fi'
+import { MdOutlinePublic } from 'react-icons/md'
+import { FaUserFriends } from 'react-icons/fa'
+import { RiGitRepositoryPrivateFill } from 'react-icons/ri'
 
-const PostItem = ({ post, onDelete }) => {
-  const { id, content, image, created_at, name, avatar } = post
+import ImageAvatar from './ImageAvatar'
 
+const PostItem = ({ post, userName, userAvaData, onDelete }) => {
+  console.log('avatar nhận ở post item', userAvaData)
+  const { id, content, image, created_at, visibility } = post
   return (
     <div className="profile-post-item">
       <button
@@ -16,11 +21,26 @@ const PostItem = ({ post, onDelete }) => {
       </button>
 
       <div className="post-item-header">
-        <img src={avatar} alt="avatar" className="post-item-user-avatar" />
+        <div className="post-item-user-avatar-container">
+          <ImageAvatar userAvaData={userAvaData} dislaySize={40}></ImageAvatar>
+        </div>
         <div>
-          <div className="post-item-username">{name}</div>
-          <div className="post-item-date">
-            {new Date(created_at).toLocaleString()}
+          <div className="post-item-username">{userName}</div>
+          <div style={{ display: 'flex' }}>
+            <div className="post-item-date">
+              {new Date(created_at).toLocaleString()}
+            </div>
+            {visibility == 'public' && (
+              <MdOutlinePublic style={{ color: 'gray', scale: '0.8' }} />
+            )}
+            {visibility == 'friends' && (
+              <FaUserFriends style={{ color: 'gray', scale: '0.8' }} />
+            )}
+            {visibility == 'private' && (
+              <RiGitRepositoryPrivateFill
+                style={{ color: 'gray', scale: '0.8' }}
+              />
+            )}
           </div>
         </div>
       </div>

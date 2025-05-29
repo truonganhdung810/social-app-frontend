@@ -1,0 +1,157 @@
+/* Layout */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.homepage {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 100;
+}
+
+.nav-links a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-links a:hover {
+  color: green;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: green;
+}
+
+/* Main layout */
+.content {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Post list */
+.post-list {
+  flex: 2;
+}
+
+.post {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* User list */
+.user-list {
+  flex: 1;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.avatar-small {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.online-dot {
+  width: 8px;
+  height: 8px;
+  background: green;
+  border-radius: 50%;
+  margin-left: auto;
+}
+
+/* Floating user list */
+.floating-user-list {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.floating-btn {
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.user-popup {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  width: 280px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Responsive */
+.desktop-only {
+  display: block;
+}
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+}

@@ -4,8 +4,9 @@ import { TbPhotoPlus } from 'react-icons/tb'
 import compressImgPost from './compressImgPost'
 import { RiDeleteBack2Fill } from 'react-icons/ri'
 
-const CreateNewPost = () => {
+const CreateNewPost = ({ setPosts }) => {
   const [selectedImage, setSelectedImage] = useState(null)
+  const imageFile = useRef(null)
   const fileInputRef = useRef(null)
   const [hasPhoto, setHasPhoto] = useState(false)
   const [text, setText] = useState('')
@@ -28,8 +29,9 @@ const CreateNewPost = () => {
     if (file) {
       try {
         const compressImg = await compressImgPost(file)
-        console.log(compressImg)
+
         if (compressImg.src) {
+          imageFile.current = compressImg.file
           setHasPhoto(true)
           setSelectedImage(compressImg.src)
         }
@@ -56,23 +58,22 @@ const CreateNewPost = () => {
 
   const handleSubmitPost = async () => {
     if (!hasPhoto && !text.trim()) return
-
     try {
-      const payload = {
-        content: text,
-        image_url: selectedImage,
-        visibility: visibility,
+      const formData = new FormData()
+      formData.append('content', text)
+      formData.append('visibility', visibility)
+
+      if (hasPhoto) {
+        formData.append('post-image', imageFile.current) // "post-image" là đúng theo multer.single('image')
       }
 
-      const token = localStorage.getItem('token')
-
-      const response = await fetch('http://localhost:4000/api/posts/', {
+      const response = await fetch('http://localhost:4000/api/posts/create', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+          id: localStorage.getItem('id'),
         },
-        body: JSON.stringify(payload),
+        body: formData,
       })
 
       const result = await response.json()
@@ -81,8 +82,17 @@ const CreateNewPost = () => {
         alert('Post created successfully!')
         setText('')
         setSelectedImage(null)
-        setVisibility('public')
+
         if (fileInputRef.current) fileInputRef.current.value = ''
+        const newPost = {
+          id: result.id,
+          content: result.content,
+          image: result.image,
+          created_at: result.created_at,
+          visibility: result.visibility,
+        }
+        setVisibility(result.visibility)
+        setPosts((prevPosts) => [newPost, ...prevPosts])
       } else {
         alert(result.message || 'Failed to create post.')
       }

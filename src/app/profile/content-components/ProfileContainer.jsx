@@ -5,7 +5,7 @@ import ListFriends from './ListFriends'
 import React, { useState, useEffect, useRef } from 'react'
 import './styles/profile-container.css'
 
-export default function ProfileContainer() {
+export default function ProfileContainer({ userName, userAvaData }) {
   const [posts, setPosts] = useState([])
   const token = localStorage.getItem('token')
   const userId = localStorage.getItem('id')
@@ -38,6 +38,38 @@ export default function ProfileContainer() {
 
     fetchPosts()
   }, [userId])
+
+  const handleDeletePost = async (postId) => {
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this post? ' + 'id = ' + `${postId}`
+    )
+    if (!confirmDelete) return
+
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/posts/${postId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            authorization: `Bearer ${token}`, // 👈 truyền token
+            id: userId,
+          },
+        }
+      )
+
+      if (!response.ok) {
+        const data = await response.json()
+        alert(data.message || 'Failed to delete post')
+        return
+      }
+
+      // Cập nhật danh sách post sau khi xóa
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId))
+    } catch (err) {
+      console.error('Error deleting post:', err)
+      alert('Server error')
+    }
+  }
   return (
     <div className="profile-container-layout">
       <div className="profile-left-content">
@@ -48,8 +80,13 @@ export default function ProfileContainer() {
         <ListFriends className="profile-list-friends"></ListFriends>
       </div>
       <div className="profile-right-content">
-        <CreateNewPost></CreateNewPost>
-        <PostsList posts={posts}></PostsList>
+        <CreateNewPost setPosts={setPosts}></CreateNewPost>
+        <PostsList
+          posts={posts}
+          userName={userName}
+          userAvaData={userAvaData}
+          handleDeletePost={handleDeletePost}
+        ></PostsList>
       </div>
     </div>
   )
