@@ -1,8 +1,8 @@
 const ImageAvatar = ({ avaData, dislaySize }) => {
   // Kích thước Avatar hiển thị là DislaySize
   // Scale các thông số của ảnh (offsetX, offsetY và cropWidth) về kích thước này rồi hiển thị
-  let src = avaData.avatar;
-  let cropWidth = avaData.ava_width;
+  const { src, rOffsetX, rOffsetY, cropWidth } = avaData;
+
   if (src === "null" || src === null) {
     src = "/default-avatar_size200x200.jpg";
     cropWidth = 200;
