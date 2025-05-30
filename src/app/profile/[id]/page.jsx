@@ -8,21 +8,18 @@ import { useParams } from 'next/navigation'
 import ProfileLayout from './Profile'
 
 function ProfilePage() {
-  const params = useParams()
-  console.log(params)
-
   return (
     <div>
-      <UserProvider>
-        <AuthGuard>
-          <div
-            className="body-container"
-            style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
-          >
-            <ProfileLayout></ProfileLayout>
-          </div>
-        </AuthGuard>
-      </UserProvider>
+      {/* <UserProvider>
+        <AuthGuard> */}
+      <div
+        className="body-container"
+        style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+      >
+        <ProfileLayout></ProfileLayout>
+      </div>
+      {/* </AuthGuard>
+      </UserProvider> */}
     </div>
   )
 }

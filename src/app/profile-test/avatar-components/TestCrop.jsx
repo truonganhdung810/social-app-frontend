@@ -48,7 +48,7 @@ const CropAvatar = ({
     e.stopPropagation() // không cho lan lên crop-box
     isResize.current = true
     isDragging.current = false
-
+    console.log('Click button Resize')
     startPos.current = { x: e.clientX, y: e.clientY }
 
     // Lắng nghe khi kéo chuột và thả chuột
@@ -79,6 +79,7 @@ const CropAvatar = ({
     e.preventDefault()
     isResize.current = false
     isDragging.current = true
+    console.log('Click button Drag')
 
     startPos.current = { x: e.clientX, y: e.clientY }
 
@@ -113,6 +114,8 @@ const CropAvatar = ({
   }
 
   const handleResizeMouseUp = () => {
+    if (isResize.current) console.log('Resize Mouse Up')
+    if (isDragging.current) console.log('Drag Mouse Up')
     window.removeEventListener('mousemove', handleResizeMouseMove)
     window.removeEventListener('mouseup', handleResizeMouseUp)
     isResize.current = false
@@ -163,6 +166,8 @@ const CropAvatar = ({
       const width = parseInt(dimensions[0], 10)
       const height = parseInt(dimensions[1], 10)
 
+      console.log(`Width: ${width}, Height: ${height}`)
+
       localStorage.setItem('avatar', res.fileUrl)
       localStorage.setItem('ava_offsetX', realOffsetX)
       localStorage.setItem('ava_offsetY', realOffsetY)
@@ -176,9 +181,19 @@ const CropAvatar = ({
         rOffsetY: realOffsetY,
         cropWidth,
       }
+
+      console.log('Crop Avatar Done', {
+        width,
+        height,
+        rOffsetX,
+        rOffsetY,
+        cropWidth,
+      })
       setUserAvaData(saveData)
       setIsShowPopupCropAva(false)
     }
+
+    console.log('Response upload avatar', res)
   }
 
   const cancelCrop = () => {

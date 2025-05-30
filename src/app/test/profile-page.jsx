@@ -1,16 +1,12 @@
-// Component chứa toàn bộ các phần tử con của phần Hiển thị Cover Photo
-
 'use client'
 import React, { useState, useEffect, useRef } from 'react'
 import CoverImage from './CoverImage'
 import PopupMenu from './PopupMenu'
 import DragNewCoverImage from './DragNewCoverImage'
 
-const CoverContainer = ({ windowWidth }) => {
-  const src =
-    localStorage.getItem('cover') === 'null'
-      ? '/default_cover_size1200x400.png'
-      : localStorage.getItem('cover')
+const ProfilePage = () => {
+  const src = localStorage.getItem('cover')
+
   // Tách chuỗi từ phần '_size'
   const sizePart = src.split('_size')[1]
   const dimensions = sizePart.split('.')[0].split('x')
@@ -37,20 +33,33 @@ const CoverContainer = ({ windowWidth }) => {
     rOffsetX: 0,
     rOffsetY: 0,
   })
-
+  const [windowWidth, setWindowWidth] = useState(0)
   const [isShowPopupMenu, setIsShowPopupMenu] = useState(false)
   const btnEditCoverRef = useRef()
   const [isPreviewNewCover, setIsPreviewNewCover] = useState(false)
 
+  useEffect(() => {
+    const handleResize = () => {
+      const newWidth = window.innerWidth
+      let w = newWidth < 1200 ? newWidth : 1200
+      if (w < 350) w = 350
+      setWindowWidth(w)
+    }
+    handleResize() // Lấy giá trị ban đầu
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const clickBtnEditCover = () => {
+    console.log('Click button', isShowPopupMenu)
     setIsShowPopupMenu(!isShowPopupMenu)
   }
 
   return (
-    <div
-      className="main-container"
-      style={{ width: `${windowWidth}px`, height: `${windowWidth / 3}px` }}
-    >
+    <div className="main-container" style={{ width: `${windowWidth}px` }}>
+      <div className="top-navigation">
+        <h1>Top Navigation</h1>
+      </div>
       <div
         style={{
           position: 'relative',
@@ -96,4 +105,4 @@ const CoverContainer = ({ windowWidth }) => {
   )
 }
 
-export default CoverContainer
+export default ProfilePage

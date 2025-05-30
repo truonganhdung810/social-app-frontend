@@ -13,7 +13,7 @@ const ProfileLayout = () => {
   // Các thông số của Avatar
   let src = localStorage.getItem('avatar')
   let cropWidth = localStorage.getItem('ava_width')
-  if (src === 'null') {
+  if (src === 'null' || src === null) {
     src = '/default-avatar_size200x200.jpg'
     cropWidth = 200
   }
@@ -62,15 +62,17 @@ const ProfileLayout = () => {
   return (
     <div className="profile-container">
       <div className="profile-layout">
-        <CoverContainer windowWidth={windowWidth} />
-        <AvatarContainer
-          windowWidth={windowWidth}
-          userName={userName}
-          userAvaData={userAvaData}
-          setUserAvaData={setUserAvaData}
-          isShowPopupCropAva={isShowPopupCropAva}
-          setIsShowPopupCropAva={setIsShowPopupCropAva}
-        ></AvatarContainer>
+        <div className="image-profile">
+          <CoverContainer windowWidth={windowWidth} />
+          <AvatarContainer
+            windowWidth={windowWidth}
+            userName={userName}
+            userAvaData={userAvaData}
+            setUserAvaData={setUserAvaData}
+            isShowPopupCropAva={isShowPopupCropAva}
+            setIsShowPopupCropAva={setIsShowPopupCropAva}
+          ></AvatarContainer>
+        </div>
         <div className="mt-16">
           <ProfileContainer
             userName={userName}

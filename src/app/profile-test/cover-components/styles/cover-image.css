@@ -1,0 +1,93 @@
+.container {
+  width: 100%; /* Chiếm toàn bộ chiều rộng của cửa sổ */
+  max-width: 1200px; /* Giới hạn chiều rộng tối đa nếu cần */
+}
+
+.top-navigation {
+  background-color: rgb(55, 168, 102); /* Màu nền cho Top Navigation */
+  padding: 20px;
+  margin-bottom: 2px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Chiếm toàn bộ chiều rộng của container */
+  height: 5%;
+}
+
+.cover-image {
+  position: relative;
+  width: 100%; /* Chiếm toàn bộ chiều rộng của container */
+  overflow: hidden;
+}
+
+.cover-image img {
+  position: absolute;
+  /* Chiếm toàn bộ chiều cao của phần tử chứa */
+  object-fit: cover; /* Đảm bảo ảnh không bị méo và phủ toàn bộ */
+}
+
+.btn-edit-cover {
+  display: flex;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 5px 8px;
+  background-color: rgba(253, 253, 253, 0.8);
+  color: rgb(55, 168, 102);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  align-items: center;
+}
+
+.btn-edit-cover:hover {
+  background-color: rgb(44, 134, 81);
+  color: rgb(255, 255, 255);
+}
+
+.btn-edit-cover:active {
+  transform: scale(1.05);
+}
+
+.camera-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  margin-bottom: 3px;
+}
+
+.vitri-popup {
+  width: 100%;
+  position: relative;
+}
+
+@media (max-width: 480px) {
+  /* màn hình di động nhỏ đến lớn */
+
+  .btn-edit-cover {
+    padding: 5px;
+    background-color: rgba(253, 253, 253, 0.8); /* Nửa trong suốt */
+    border-radius: 50%; /* Hình tròn */
+    width: 25px;
+    height: 25px;
+    bottom: 5px;
+    right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .camera-icon {
+    /* Hiện icon trên mobile */
+    margin-right: 0px;
+    margin-bottom: 0px;
+    width: 12px;
+    height: 12px;
+  }
+
+  .btn-edit-cover-text {
+    display: none; /* Ẩn text  */
+  }
+}

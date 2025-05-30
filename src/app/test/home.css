@@ -1,0 +1,48 @@
+.public-home-container-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+}
+
+/* Cột trái gồm phần 1 + phần 2 */
+.public-home-left-content {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 20px; /* Khoảng cách từ đỉnh trang */
+  align-self: flex-start;
+}
+
+/* Cột phải chỉ chứa phần 3 */
+.public-home-right-content {
+  flex: 1;
+}
+
+/* Style cho từng phần */
+.section {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive: chuyển về 1 cột khi nhỏ hơn 768px */
+@media (max-width: 768px) {
+  .public-home-container-layout {
+    flex-direction: column;
+  }
+
+  .public-home-left-content,
+  .public-home-right-content {
+    width: 100%;
+  }
+  .public-home-left-content {
+    position: relative;
+    top: 0px;
+  }
+}

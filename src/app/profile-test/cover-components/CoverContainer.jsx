@@ -2,7 +2,7 @@
 
 'use client'
 import React, { useState, useEffect, useRef } from 'react'
-import CoverImage from './CoverImage'
+import CoverImage from './GuestCoverImage'
 import PopupMenu from './PopupMenu'
 import DragNewCoverImage from './DragNewCoverImage'
 
@@ -62,10 +62,7 @@ const CoverContainer = ({ windowWidth }) => {
           <CoverImage
             className="cover"
             imageData={coverData}
-            setCoverData={setCoverData}
             windowWidth={windowWidth}
-            btnEditCoverRef={btnEditCoverRef}
-            clickBtnEditCover={clickBtnEditCover}
           ></CoverImage>
         </div>
         {isPreviewNewCover && (
