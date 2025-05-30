@@ -1,4 +1,4 @@
-.profile-post-item {
+.guest-profile-post-item {
   position: relative;
   width: 100%;
   background: white;
@@ -8,49 +8,38 @@
   margin-bottom: 16px;
 }
 
-.post-item-delete-button {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: transparent;
-  border: none;
-  font-size: 18px;
-  color: #aaa;
-  cursor: pointer;
-}
-
-.post-item-delete-button:hover {
+.guest-post-item-delete-button:hover {
   color: rgb(0, 0, 0);
 }
 
-.post-item-header {
+.guest-post-item-header {
   display: flex;
   align-items: center;
   margin-bottom: 12px;
 }
 
-.post-item-user-avatar-container {
+.guest-post-item-user-avatar-container {
   width: 40px;
   height: 40px;
   margin-right: 12px;
 }
 
-.post-item-username {
+.guest-post-item-username {
   font-weight: 600;
 }
 
-.post-item-date {
+.guest-post-item-date {
   font-size: 12px;
   color: gray;
   margin-right: 5px;
 }
 
-.post-item-content {
+.guest-post-item-content {
   color: #333;
   margin-bottom: 12px;
 }
 
-.post-item-image {
+.guest-post-item-image {
   max-height: 600px;
   max-width: 100%;
   object-fit: contain;

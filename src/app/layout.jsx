@@ -1,16 +1,13 @@
-import './globals.css'
-import Link from 'next/link'
+// app/layout.jsx
+import "./globals.css";
+import Link from "next/link";
 
 export const metadata = {
-  title: 'Social App',
-  description: 'Mạng xã hội đơn giản',
-}
+  title: "Social App",
+  description: "Mạng xã hội đơn giản",
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
@@ -23,8 +20,13 @@ export default function RootLayout({
             <Link href="/register">Register</Link>
           </div>
         </nav>
-        <div>{children}</div>
+        <div
+          className="page-wrapper"
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          {children}
+        </div>
       </body>
     </html>
-  )
+  );
 }

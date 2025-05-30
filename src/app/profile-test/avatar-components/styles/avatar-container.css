@@ -37,7 +37,7 @@
   width: 18px;
   height: 18px;
 }
-.user-name h2 {
+.user-name {
   width: 100%;
   margin-top: 30px;
   font-size: 35px;
@@ -52,8 +52,7 @@
     text-align: center;
     gap: 0px;
   }
-
-  .user-name h2 {
+  .user-name {
     margin-top: 0px;
   }
 }

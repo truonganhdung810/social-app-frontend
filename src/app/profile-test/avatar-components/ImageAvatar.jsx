@@ -1,34 +1,23 @@
-import { useRef } from 'react'
+const ImageAvatar = ({ avaData, dislaySize }) => {
+  const { src, width, height, rOffsetX, rOffsetY, cropWidth } = avaData;
 
-const ImageAvatar = ({ avatarData, dislaySize }) => {
-  const { src, width, height, rOffsetX, rOffsetY, cropWidth } = avatarData
+  let scaleRatio, offsetX, offsetY;
 
-  if (src == null) {
-    // Chưa có avatar, hiển thị avatar mặc định
-    // src = 'avatar mặc định'
-  }
-  // Kích thước Avatar hiển thị là 180x180px
-  // Scale các thông số của ảnh (offsetX, offsetY và cropWidth) về kích thước này rồi hiển thị
-  const scaleRatio = useRef(1)
-
-  const offsetX = useRef(0)
-  const offsetY = useRef(0)
-
-  scaleRatio.current = dislaySize / cropWidth
-  offsetX.current = rOffsetX * scaleRatio.current
-  offsetY.current = rOffsetY * scaleRatio.current
+  scaleRatio = dislaySize / cropWidth;
+  offsetX = rOffsetX * scaleRatio;
+  offsetY = rOffsetY * scaleRatio;
 
   return (
     <div
       className="img-container"
       style={{
-        position: 'relative',
+        position: "relative",
         width: `${dislaySize}px`,
         height: `${dislaySize}px`,
-        borderRadius: '50%',
-        overflow: 'hidden',
-        border: '5px solid rgb(255, 255, 255)',
-        backgroundColor: '#f0f0f0',
+        borderRadius: "50%",
+        overflow: "hidden",
+        border: "5px solid rgb(255, 255, 255)",
+        backgroundColor: "#f0f0f0",
       }}
     >
       <img
@@ -36,16 +25,16 @@ const ImageAvatar = ({ avatarData, dislaySize }) => {
         src={src}
         alt="Avatar"
         style={{
-          width: `${width * scaleRatio.current}px`,
-          height: `${height * scaleRatio.current}px`,
-          maxWidth: 'none',
-          left: `${-offsetX.current}px`,
-          top: `${-offsetY.current}px`,
-          position: 'absolute',
-          objectFit: 'cover',
+          width: `${width * scaleRatio}px`,
+          height: `${height * scaleRatio}px`,
+          maxWidth: "none",
+          left: `${-offsetX}px`,
+          top: `${-offsetY}px`,
+          position: "absolute",
+          objectFit: "cover",
         }}
       />
     </div>
-  )
-}
-export default ImageAvatar
+  );
+};
+export default ImageAvatar;

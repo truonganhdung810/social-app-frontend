@@ -1,93 +1,34 @@
-import CreateNewPost from './CreateNewPost'
-import PostsList from './PostsList'
-import PhotosGrid from './PhotosGrid'
-import ListFriends from './ListFriends'
-import React, { useState, useEffect, useRef } from 'react'
-import './styles/profile-container.css'
+import PostsList from "./PostsList";
+import PhotosGrid from "./PhotosGrid";
+import ListFriends from "./GridListFriends";
 
-export default function ProfileContainer({ userName, userAvaData }) {
-  const [posts, setPosts] = useState([])
-  const token = localStorage.getItem('token')
-  const userId = localStorage.getItem('id')
-  const [listImages, setListImages] = useState([])
+import "./styles/profile-container.css";
+import GridListFriends from "./GridListFriends";
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch(
-          `http://localhost:4000/api/posts/user/${userId}`,
-          {
-            method: 'GET',
-            headers: {
-              authorization: `Bearer ${token}`, // 👈 truyền token
-              id: userId, // 👈 nếu server yêu cầu thêm
-            },
-          }
-        )
-        const data = await res.json()
+export default function ProfileContainer({ userName, avaData, posts, users }) {
+  const images = posts
+    .filter((post) => post.image && post.image.trim() !== "")
+    .map((post) => post.image);
 
-        const images = data.posts
-          .filter((post) => post.image && post.image.trim() !== '')
-          .map((post) => post.image)
-        setListImages(images)
-        setPosts(data.posts)
-      } catch (err) {
-        console.error('Failed to fetch posts', err)
-      }
-    }
-
-    fetchPosts()
-  }, [userId])
-
-  const handleDeletePost = async (postId) => {
-    const confirmDelete = window.confirm(
-      'Are you sure you want to delete this post? ' + 'id = ' + `${postId}`
-    )
-    if (!confirmDelete) return
-
-    try {
-      const response = await fetch(
-        `http://localhost:4000/api/posts/${postId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            authorization: `Bearer ${token}`, // 👈 truyền token
-            id: userId,
-          },
-        }
-      )
-
-      if (!response.ok) {
-        const data = await response.json()
-        alert(data.message || 'Failed to delete post')
-        return
-      }
-
-      // Cập nhật danh sách post sau khi xóa
-      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId))
-    } catch (err) {
-      console.error('Error deleting post:', err)
-      alert('Server error')
-    }
-  }
   return (
-    <div className="profile-container-layout">
-      <div className="profile-left-content">
+    <div className="guest-profile-container-layout">
+      <div className="guest-profile-left-content">
         <PhotosGrid
-          className="profile-photos-grid"
-          images={listImages}
+          className="guest-profile-photos-grid"
+          images={images}
         ></PhotosGrid>
-        <ListFriends className="profile-list-friends"></ListFriends>
+        <GridListFriends
+          className="guest-profile-list-friends"
+          users={users}
+        ></GridListFriends>
       </div>
-      <div className="profile-right-content">
-        <CreateNewPost setPosts={setPosts}></CreateNewPost>
+      <div className="guest-profile-right-content">
         <PostsList
           posts={posts}
           userName={userName}
-          userAvaData={userAvaData}
-          handleDeletePost={handleDeletePost}
+          avaData={avaData}
         ></PostsList>
       </div>
     </div>
-  )
+  );
 }

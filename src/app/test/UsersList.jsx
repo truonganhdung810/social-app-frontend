@@ -1,11 +1,11 @@
-import React from 'react'
-import './userslist.css'
-import ImageAvatar from './ImageAvatar'
-import Link from 'next/link'
+import React from "react";
+import "./userslist.css";
+import ImageAvatar from "./ImageAvatar";
+import Link from "next/link";
 
 const UsersList = ({ users }) => {
   return (
-    <div className="home-user-list-user-list-container">
+    <div className="home-user-list-container">
       <h3 className="home-user-list-title">People</h3>
       <input className="home-user-list-search-input" placeholder="Search" />
 
@@ -35,7 +35,7 @@ const UsersList = ({ users }) => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default UsersList
+export default UsersList;

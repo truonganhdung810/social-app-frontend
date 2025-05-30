@@ -1,7 +1,7 @@
-import React from 'react'
-import PostItem from './PostItem'
+import React from "react";
+import PostItem from "./PostItem";
 
-const PostList = ({ posts, userName, userAvaData, handleDeletePost }) => {
+const PostList = ({ posts, userName, avaData }) => {
   return (
     <div className="w-full">
       {posts.map((post) => (
@@ -9,12 +9,11 @@ const PostList = ({ posts, userName, userAvaData, handleDeletePost }) => {
           key={post.id}
           post={post}
           userName={userName}
-          userAvaData={userAvaData}
-          onDelete={handleDeletePost}
+          avaData={avaData}
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default PostList
+export default PostList;
