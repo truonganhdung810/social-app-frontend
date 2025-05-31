@@ -18,14 +18,14 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
+  padding: 12px 20px;
   border-bottom: 1px solid #ddd;
-  position: sticky;
+
   top: 0;
   background: white;
   z-index: 100;
-  margin-left: 50px;
-  margin-right: 50px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .logo {

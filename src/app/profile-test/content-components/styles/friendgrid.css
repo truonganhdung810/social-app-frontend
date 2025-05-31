@@ -7,10 +7,23 @@
   margin: 0 auto;
 }
 
-.friend-title {
-  font-size: 18px;
-  font-weight: bold;
+.friend-grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 16px;
+}
+
+.friend-grid-title {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0;
+}
+
+.friend-grid-link-all {
+  color: #22c55e; /* xanh lá */
+  font-size: 14px;
+  text-decoration: none;
 }
 
 .friend-grid {

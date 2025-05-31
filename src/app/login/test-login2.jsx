@@ -3,7 +3,7 @@
 'use client'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-import '../../styles/login.css'
+import '../../styles/login-register.css'
 import 'react-toastify/dist/ReactToastify.css'
 import { useRouter } from 'next/navigation'
 

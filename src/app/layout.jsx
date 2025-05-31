@@ -1,32 +1,29 @@
 // app/layout.jsx
-import "./globals.css";
-import Link from "next/link";
+import './globals.css'
+import Link from 'next/link'
+import Navigation from './Navigation'
+import { cookies } from 'next/headers'
 
 export const metadata = {
-  title: "Social App",
-  description: "Mạng xã hội đơn giản",
-};
+  title: 'Social App',
+  description: 'Mạng xã hội đơn giản',
+}
 
 export default function RootLayout({ children }) {
+  const cookieStore = cookies()
+  const token = cookieStore.get('token')?.value
+  const isLoggedIn = !!token
   return (
     <html lang="en">
       <body>
-        <nav className="navbar">
-          <Link href="/homepage" className="logo">
-            SocialApp
-          </Link>
-          <div className="nav-links">
-            <Link href="/login">Login</Link>
-            <Link href="/register">Register</Link>
-          </div>
-        </nav>
+        <Navigation isLoggedIn={isLoggedIn}></Navigation>
         <div
           className="page-wrapper"
-          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
         >
           {children}
         </div>
       </body>
     </html>
-  );
+  )
 }

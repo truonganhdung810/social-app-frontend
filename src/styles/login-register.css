@@ -1,15 +1,10 @@
-/* Định dạng tổng thể của trang */
-.login-container {
-}
-
 /* Định dạng hộp đăng nhập */
 .login-box {
   background: rgb(255, 255, 255);
   padding: 40px;
   border-radius: 8px;
   box-shadow: 4px 4px 8px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+  width: 400px;
   text-align: center;
   margin: 50px auto;
 }
@@ -25,13 +20,14 @@
 .textbox {
   margin-bottom: 20px;
   position: relative;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .textbox input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+
   font-size: 16px;
   outline: none;
   box-sizing: border-box;

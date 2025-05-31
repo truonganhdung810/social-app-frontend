@@ -1,35 +1,41 @@
-"use client";
+'use client'
 
-import React from "react";
-import "./styles/friendgrid.css";
-import ImageAvatar from "./ImageAvatar";
-import { useRef, useState, useEffect } from "react";
+import React from 'react'
+import './styles/friendgrid.css'
+import ImageAvatar from './ImageAvatar'
+import { useRef, useState, useEffect } from 'react'
 
 const GridListFriends = ({ users }) => {
-  const elementRef = useRef(null);
-  const [size, setSize] = useState({ width: 0, height: 0 });
+  const [windowWidth, setWindowWidth] = useState(1200)
 
   useEffect(() => {
-    const element = elementRef.current;
-    if (!element) return;
+    const handleResize = () => {
+      const newWidth = window.innerWidth
+      let w = newWidth < 1200 ? newWidth : 1200
+      if (w < 350) w = 350
+      setWindowWidth((prevWidth) => {
+        if (prevWidth !== w) {
+          return w
+        }
+        return prevWidth // không cập nhật nếu không thay đổi
+      })
+    }
+    handleResize() // Lấy giá trị ban đầu
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
-    const observer = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        const { width, height } = entry.contentRect;
-        setSize({ width, height });
-      }
-    });
-
-    observer.observe(element);
-
-    return () => observer.disconnect();
-  }, []);
   return (
     <div className="friend-grid-container">
-      <h2 className="friend-title">Bạn bè</h2>
+      <div className="friend-grid-header">
+        <h2 className="friend-grid-title">People</h2>
+        <a href="#" className="friend-grid-link-all">
+          See all people
+        </a>
+      </div>
       <div className="friend-grid">
         {users.map((user, index) => (
-          <div className="friend-item" key={index} ref={elementRef}>
+          <div className="friend-item" key={index}>
             <ImageAvatar
               avaData={{
                 src: user.avatar,
@@ -37,7 +43,8 @@ const GridListFriends = ({ users }) => {
                 rOffsetY: user.ava_offsetY,
                 cropWidth: user.ava_width,
               }}
-              dislaySize={size}
+              dislaySize={((windowWidth - 20) / 2.5 - 56) / 3}
+              borderRadius={6}
               alt={user.name}
               className="friend-avatar"
             />
@@ -46,7 +53,7 @@ const GridListFriends = ({ users }) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default GridListFriends;
+export default GridListFriends
