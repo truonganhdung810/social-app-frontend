@@ -1,0 +1,43 @@
+.profile-photos-grid-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.profile-photos-grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.profile-photos-grid-title {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0;
+}
+
+.profile-photos-grid-link-all {
+  color: #22c55e; /* xanh lá */
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.profile-photos-grid-link-all:hover {
+  text-decoration: underline;
+}
+
+.profile-photos-grid-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.profile-photos-grid-item {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+}

@@ -1,23 +1,25 @@
 import React from "react";
-import "./postitem.css";
+import "../styles/postitem.css";
 import ImageAvatar from "./ImageAvatar";
 import { MdOutlinePublic } from "react-icons/md";
+import { FaUserFriends } from "react-icons/fa";
+import { RiGitRepositoryPrivateFill } from "react-icons/ri";
 import Link from "next/link";
 
 const PublicPostItem = ({ post }) => {
-  const { id, content, image, created_at } = post;
+  const { id, content, image, created_at, visibility } = post;
   return (
     <div className="profile-post-item">
       <div className="post-item-header">
         <Link
-          href={`/profile-test/${post.user.id}`}
+          href={`/profile/${post.user.id}`}
           className="post-item-user-avatar-container"
         >
           <ImageAvatar userData={post.user} dislaySize={40}></ImageAvatar>
         </Link>
         <div>
           <Link
-            href={`/profile-test/${post.user.id}`}
+            href={`/profile/${post.user.id}`}
             className="post-item-username"
           >
             {post.user.name}
@@ -26,7 +28,17 @@ const PublicPostItem = ({ post }) => {
             <div className="post-item-date">
               {new Date(created_at).toLocaleString()}
             </div>
-            <MdOutlinePublic style={{ color: "gray", scale: "0.8" }} />
+            {visibility == "public" && (
+              <MdOutlinePublic style={{ color: "gray", scale: "0.8" }} />
+            )}
+            {visibility == "friends" && (
+              <FaUserFriends style={{ color: "gray", scale: "0.8" }} />
+            )}
+            {visibility == "private" && (
+              <RiGitRepositoryPrivateFill
+                style={{ color: "gray", scale: "0.8" }}
+              />
+            )}
           </div>
         </div>
       </div>

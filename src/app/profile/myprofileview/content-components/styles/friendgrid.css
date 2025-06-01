@@ -1,0 +1,50 @@
+.friend-grid-container {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.friend-grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.friend-grid-title {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0;
+}
+
+.friend-grid-link-all {
+  color: #22c55e; /* xanh lá */
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.friend-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.friend-item {
+  text-align: center;
+}
+
+.friend-avatar {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.friend-name {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}

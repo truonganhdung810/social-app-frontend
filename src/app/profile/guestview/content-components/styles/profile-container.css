@@ -1,0 +1,48 @@
+.guest-profile-container-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+}
+
+/* Cột trái gồm phần 1 + phần 2 */
+.guest-profile-left-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 20px; /* Khoảng cách từ đỉnh trang */
+  align-self: flex-start;
+}
+
+/* Cột phải chỉ chứa phần 3 */
+.guest-profile-right-content {
+  flex: 1.5;
+}
+
+/* Style cho từng phần */
+.section {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive: chuyển về 1 cột khi nhỏ hơn 768px */
+@media (max-width: 768px) {
+  .guest-profile-container-layout {
+    flex-direction: column;
+  }
+
+  .guest-profile-left-content,
+  .guest-profile-right-content {
+    width: 100%;
+  }
+  .guest-profile-left-content {
+    position: relative;
+    top: 0px;
+  }
+}

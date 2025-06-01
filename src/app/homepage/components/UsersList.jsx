@@ -1,5 +1,5 @@
 import React from "react";
-import "./userslist.css";
+import "../styles/userslist.css";
 import ImageAvatar from "./ImageAvatar";
 import Link from "next/link";
 
@@ -13,7 +13,7 @@ const UsersList = ({ users }) => {
         {users.map((user) => (
           <li className="home-user-list-user-item" key={user.id}>
             <Link
-              href={`/profile-test/${user.id}`}
+              href={`/profile/${user.id}`}
               className="home-user-list-user-link"
             >
               <div className="home-user-list-avatar-container">

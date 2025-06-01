@@ -1,0 +1,69 @@
+.home-user-list-container {
+  width: 250px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  font-family: sans-serif;
+}
+
+.home-user-list-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.home-user-list-search-input {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.home-user-list-search-input:focus {
+  outline: none;
+}
+
+.home-user-list-user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.home-user-list-user-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.home-user-list-user-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.home-user-list-user-item:hover {
+  background-color: #e4e6eb;
+}
+
+.home-user-list-avatar-container {
+  position: relative;
+  margin-right: 10px;
+}
+
+.home-user-list-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.home-user-list-username {
+  font-size: 14px;
+}

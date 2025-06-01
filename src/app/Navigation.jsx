@@ -1,23 +1,24 @@
-'use client'
+"use client";
 
-import { usePathname, useRouter } from 'next/navigation'
-import useAuth from '../hooks/useAuth'
-import Link from 'next/link'
+import { usePathname, useRouter } from "next/navigation";
+import useAuth from "../hooks/useAuth";
+import Link from "next/link";
 
 export default function Navigation() {
-  const pathname = usePathname()
-  const hideAuthLinks = ['/login', '/register'].includes(pathname)
-  const { isLoggedIn, user, logout } = useAuth()
+  const pathname = usePathname();
+  const hideAuthLinks = ["/login", "/register"].includes(pathname);
+  const { isLoggedIn, user, logout } = useAuth();
+  const router = useRouter();
 
   return (
     <div
       className="navbar-container"
       style={{
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        position: 'fixed',
-        zIndex: '1000',
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        position: "fixed",
+        zIndex: "1000",
       }}
     >
       <nav className="navbar">
@@ -28,7 +29,7 @@ export default function Navigation() {
         <div className="nav-links">
           {!hideAuthLinks && !isLoggedIn && (
             <>
-              <span style={{ color: 'green', textDecoration: 'underline' }}>
+              <span style={{ color: "green", textDecoration: "underline" }}>
                 You are currently viewing as a Guest
               </span>
               <Link href="/login">Login</Link>
@@ -37,15 +38,15 @@ export default function Navigation() {
           )}
           {isLoggedIn && (
             <>
-              <span style={{ color: 'green', textDecoration: 'underline' }}>
+              <span style={{ color: "green", textDecoration: "underline" }}>
                 Welcome, {user?.name}
               </span>
               <a
                 href="#"
                 onClick={(e) => {
-                  e.preventDefault()
-                  logout()
-                  router.push('/')
+                  console.log("Logout...");
+                  e.preventDefault();
+                  logout();
                 }}
               >
                 Logout
@@ -55,5 +56,5 @@ export default function Navigation() {
         </div>
       </nav>
     </div>
-  )
+  );
 }

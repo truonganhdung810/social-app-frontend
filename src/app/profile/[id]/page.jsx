@@ -1,59 +1,101 @@
-'use client'
-
-import * as React from 'react'
-
-import { UserProvider } from '@/context/UserContext'
-import AuthGuard from '../../../components/AuthGuard'
-import { useParams } from 'next/navigation'
-import ProfileLayout from './Profile'
-import { cookies } from 'next/headers'
-import MyProfileView from './MyProfileView'
-import { redirect } from 'next/navigation'
+import { cookies } from "next/headers";
+import GuestProfileView from "../guestview/GuestProfileView";
+import { cache } from "react";
+import MyProfileView from "../myprofileview/MyProfileView";
 
 async function ProfilePage({ params }) {
-  const cookieStore = cookies()
-  const token = cookieStore.get('token')?.value
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+  const { id } = await params;
+  console.log(token);
 
-  const userId = params.id
+  // danh sách users được dùng chung ở cả 3 viewmode
+  const resUsers = await fetch("http://localhost:4000/api/users/public", {
+    cache: "no-store",
+  });
+  const users = await resUsers.json();
 
-  if (!token) {
-    // Chưa đăng nhập => Guest
-    return (
-      <div>
-        <div
-          className="body-container"
-          style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
-        >
-          <GuestProfileLayout></GuestProfileLayout>
-        </div>
-      </div>
-    )
+  // Lấy ra thông tin của user id, dùng chung ở cả 3 viewmode
+  const resProfileId = await fetch(
+    `http://localhost:4000/api/users/public/${id}`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!resProfileId.ok) {
+    return <div>User not found</div>; // hoặc notFound()
   }
-  try {
-    const res = await fetch('http://localhost:4000/api/auth/me', {
+  const { user } = await resProfileId.json();
+
+  // TH1 nếu không có token -> GuestProfileView
+  if (!token) {
+    const resPosts = await fetch(
+      `http://localhost:4000/api/posts/public/user/${id}`,
+      { cache: "no-store" }
+    );
+
+    if (!resPosts.ok) {
+      return <div>User not found</div>; // hoặc notFound()
+    }
+    const posts = await resPosts.json();
+
+    return (
+      <div
+        className="guest-profile-container"
+        style={{ width: "100%", display: "flex", justifyContent: "center" }}
+      >
+        <GuestProfileView user={user} posts={posts} users={users} />
+      </div>
+    );
+  } else {
+    // TH2 nếu  có token
+    // đầu tiên lấy về id user từ token gửi lên API
+    const resId = await fetch(`http://localhost:4000/api/auth/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      cache: 'no-store',
-    })
-
-    if (!res.ok) {
-      // Token không hợp lệ => cũng hiển thị Guest
-      return <GuestProfileView profileId={profileId} />
-    }
-
-    const data = await res.json()
-    const userId = data.id?.toString() // Đảm bảo cùng kiểu string để so sánh
-
-    if (userId === profileId) {
-      return <MyProfileView user={data} />
+      cache: "no-store",
+    });
+    const data = await resId.json();
+    console.log("User ID", data.id);
+    if (data.id == id) {
+      // trả về MyProfileView
+      return (
+        <div
+          className="my-profile-container"
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <MyProfileView token={token} users={users} userId={id} />
+        </div>
+      );
     } else {
-      return <FriendProfileView profileId={profileId} viewerId={userId} />
+      // trả về FriendsProfile View
+      // Lấy ra danh sách bài post dạng public và friend của params id
+      const resPosts = await fetch(
+        `http://localhost:4000/api/posts/public-friend/user/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          cache: "no-store",
+        }
+      );
+
+      if (!resPosts.ok) {
+        return <div>User not found</div>; // hoặc notFound()
+      }
+      const posts = await resPosts.json();
+      return (
+        <div
+          className="guest-profile-container"
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <GuestProfileView user={user} posts={posts} users={users} />
+        </div>
+      );
     }
-  } catch (error) {
-    console.error('Error verifying token', error)
-    return <GuestProfileView profileId={profileId} />
   }
 }
 
-export default ProfilePage
+export default ProfilePage;
