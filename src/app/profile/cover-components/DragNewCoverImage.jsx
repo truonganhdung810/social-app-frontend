@@ -1,82 +1,82 @@
 // Đây là component hiển thị new Cover Photo và cho người dùng kéo thả để chọn vị trí cho cover mới
 
-import React, { useState, useEffect, useRef } from "react";
-import "./styles/drag-new-cover.css";
-import { RiDragMove2Fill } from "react-icons/ri";
+import React, { useState, useEffect, useRef } from 'react'
+import './styles/drag-new-cover.css'
+import { RiDragMove2Fill } from 'react-icons/ri'
 
 const DragNewCoverImage = ({
+  token,
   newCoverData,
   windowWidth,
   setIsPreviewNewCover,
   setSaveCoverData,
 }) => {
-  if (!newCoverData || newCoverData.file === null) return null;
-  const { file, src, width, height, rOffsetX, rOffsetY } = newCoverData;
-  const [scaleRatio, setScaleRatio] = useState(1);
-  const [offsetX, setOffsetX] = useState(0);
-  const [offsetY, setOffsetY] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  if (!newCoverData || newCoverData.file === null) return null
+  const { file, src, width, height, rOffsetX, rOffsetY } = newCoverData
+  const [scaleRatio, setScaleRatio] = useState(1)
+  const [offsetX, setOffsetX] = useState(0)
+  const [offsetY, setOffsetY] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     // Ví dụ: thực hiện tác vụ khi windowWidth thay đổi
     if (isDragging) {
       // Nếu đang dragging mà kích thước màn hình thay đổi, lập trức dừng dragging
       // Ở đây có thể dừng bằng cách cho isDragging = false
-      setIsDragging(false);
+      setIsDragging(false)
     }
     // Sau đó các thông số scaleX, scaleY, width, height sẽ được reset về ban đầu nhưng theo tỉ lệ với windowWidth mới
-    let scaleX = windowWidth / width;
-    let scaleY = windowWidth / 3 / height;
-    setScaleRatio(Math.max(scaleX, scaleY));
+    let scaleX = windowWidth / width
+    let scaleY = windowWidth / 3 / height
+    setScaleRatio(Math.max(scaleX, scaleY))
 
-    setOffsetX(rOffsetX * Math.max(scaleX, scaleY));
-    setOffsetY(rOffsetY * Math.max(scaleX, scaleY));
-  }, [windowWidth]); // Lắng nghe sự thay đổi của windowWidth
+    setOffsetX(rOffsetX * Math.max(scaleX, scaleY))
+    setOffsetY(rOffsetY * Math.max(scaleX, scaleY))
+  }, [windowWidth]) // Lắng nghe sự thay đổi của windowWidth
 
   const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartPos({ x: e.clientX, y: e.clientY });
-  };
+    setIsDragging(true)
+    setStartPos({ x: e.clientX, y: e.clientY })
+  }
 
   const handleMouseMove = (e) => {
-    if (!isDragging) return;
+    if (!isDragging) return
 
-    const dx = e.clientX - startPos.x;
-    const dy = e.clientY - startPos.y;
+    const dx = e.clientX - startPos.x
+    const dy = e.clientY - startPos.y
 
     setOffsetY((prev) => {
-      const newOffsetY = prev + dy;
-      const maxOffsetY = 0;
-      const minOffsetY = windowWidth / 3 - height * scaleRatio;
-      return Math.max(Math.min(newOffsetY, maxOffsetY), minOffsetY);
-    });
+      const newOffsetY = prev + dy
+      const maxOffsetY = 0
+      const minOffsetY = windowWidth / 3 - height * scaleRatio
+      return Math.max(Math.min(newOffsetY, maxOffsetY), minOffsetY)
+    })
     setOffsetX((prev) => {
-      const newOffsetX = prev + dx;
-      const maxOffsetX = 0;
-      const minOffsetX = windowWidth - width * scaleRatio;
-      return Math.max(Math.min(newOffsetX, maxOffsetX), minOffsetX);
-    });
-    setStartPos({ x: e.clientX, y: e.clientY });
-  };
+      const newOffsetX = prev + dx
+      const maxOffsetX = 0
+      const minOffsetX = windowWidth - width * scaleRatio
+      return Math.max(Math.min(newOffsetX, maxOffsetX), minOffsetX)
+    })
+    setStartPos({ x: e.clientX, y: e.clientY })
+  }
 
   const handleMouseUp = () => {
-    setIsDragging(false);
-  };
+    setIsDragging(false)
+  }
 
   // upload ảnh lên server
   async function uploadFile() {
-    const token = localStorage.getItem("token"); // Lấy token từ localStorage hoặc cookie
-    const userId = localStorage.getItem("id"); // id của người dùng từ localStorage
-    const name = localStorage.getItem("name");
-    const formData = new FormData();
-    formData.append("cover-image", file);
+    const userId = localStorage.getItem('id') // id của người dùng từ localStorage
+    const name = localStorage.getItem('name')
+    const formData = new FormData()
+    formData.append('cover-image', file)
 
-    const realOffsetX = scaleRatio * offsetX;
-    const realOffsetY = scaleRatio * offsetY;
+    const realOffsetX = scaleRatio * offsetX
+    const realOffsetY = scaleRatio * offsetY
 
-    const response = await fetch("http://localhost:4000/api/upload/cover", {
-      method: "POST",
+    const response = await fetch('http://localhost:4000/api/upload/cover', {
+      method: 'POST',
       headers: {
         authorization: `Bearer ${token}`, // Thêm token vào header Authorization
         id: userId,
@@ -85,25 +85,25 @@ const DragNewCoverImage = ({
         offsetY: realOffsetY,
       },
       body: formData, // Gửi FormData chứa ảnh
-    });
-    const res = await response.json();
+    })
+    const res = await response.json()
 
-    if (res.message == "OK") {
-      const fileName = res.fileUrl;
+    if (res.message == 'OK') {
+      const fileName = res.fileUrl
 
       // Tách chuỗi từ phần '_size'
-      const sizePart = fileName.split("_size")[1];
-      const dimensions = sizePart.split(".")[0].split("x");
+      const sizePart = fileName.split('_size')[1]
+      const dimensions = sizePart.split('.')[0].split('x')
 
       // Lấy width và height
-      const width = parseInt(dimensions[0], 10);
-      const height = parseInt(dimensions[1], 10);
+      const width = parseInt(dimensions[0], 10)
+      const height = parseInt(dimensions[1], 10)
 
-      console.log(`Width: ${width}, Height: ${height}`);
+      console.log(`Width: ${width}, Height: ${height}`)
 
-      localStorage.setItem("cover", res.fileUrl);
-      localStorage.setItem("cover_offsetX", realOffsetX);
-      localStorage.setItem("cover_offsetY", realOffsetY);
+      localStorage.setItem('cover', res.fileUrl)
+      localStorage.setItem('cover_offsetX', realOffsetX)
+      localStorage.setItem('cover_offsetY', realOffsetY)
 
       const saveData = {
         src: res.fileUrl,
@@ -111,30 +111,30 @@ const DragNewCoverImage = ({
         height,
         offsetX: realOffsetX,
         offsetY: realOffsetY,
-      };
-      setSaveCoverData(saveData);
-      setIsPreviewNewCover(false);
+      }
+      setSaveCoverData(saveData)
+      setIsPreviewNewCover(false)
     }
 
-    console.log("Response upload cover", res);
+    console.log('Response upload cover', res)
   }
 
   const cancelEdit = () => {
-    setIsPreviewNewCover(false);
-  };
+    setIsPreviewNewCover(false)
+  }
   const saveEdit = () => {
-    uploadFile();
-  };
+    uploadFile()
+  }
 
   return (
     <div
       className="drag-container"
       style={{
-        position: "relative",
+        position: 'relative',
         width: `${windowWidth}px`,
         height: `${windowWidth / 3}px`,
-        overflow: "hidden",
-        cursor: "move",
+        overflow: 'hidden',
+        cursor: 'move',
       }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -146,14 +146,14 @@ const DragNewCoverImage = ({
           <RiDragMove2Fill
             className="crop-icon"
             style={{
-              color: "white",
-              marginLeft: "20px",
-              transform: "scale(1.5)",
+              color: 'white',
+              marginLeft: '20px',
+              transform: 'scale(1.5)',
             }}
           />
           <span
             className="crop-text"
-            style={{ color: "white", marginLeft: "5px" }}
+            style={{ color: 'white', marginLeft: '5px' }}
           >
             "Click and drag to crop your cover photo"
           </span>
@@ -173,16 +173,16 @@ const DragNewCoverImage = ({
         alt="Cover"
         draggable={false}
         style={{
-          position: "absolute",
-          objectFit: "cover",
+          position: 'absolute',
+          objectFit: 'cover',
           transform: `translate(${offsetX}px, ${offsetY}px)`,
           width: `${width * scaleRatio}px`,
           height: `${height * scaleRatio}px`,
-          maxWidth: "none",
-          userSelect: "none",
+          maxWidth: 'none',
+          userSelect: 'none',
         }}
       />
     </div>
-  );
-};
-export default DragNewCoverImage;
+  )
+}
+export default DragNewCoverImage

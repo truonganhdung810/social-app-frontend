@@ -4,6 +4,7 @@ import './styles/crop-avatar.css'
 import { RiDragMove2Fill } from 'react-icons/ri'
 
 const CropAvatar = ({
+  token,
   isShowPopupCropAva,
   setIsShowPopupCropAva,
   cropAvaData,
@@ -128,7 +129,6 @@ const CropAvatar = ({
 
   // upload avatar lên server
   async function uploadFile() {
-    const token = localStorage.getItem('token') // Lấy token từ localStorage hoặc cookie
     const userId = localStorage.getItem('id') // id của người dùng từ localStorage
     const name = localStorage.getItem('name')
     const formData = new FormData()

@@ -1,31 +1,10 @@
-'use client'
-
 import React from 'react'
 import './styles/friendgrid.css'
 import ImageAvatar from './ImageAvatar'
 import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 
-const GridListFriends = ({ users }) => {
-  const [windowWidth, setWindowWidth] = useState(1200)
-
-  useEffect(() => {
-    const handleResize = () => {
-      const newWidth = window.innerWidth
-      let w = newWidth < 1200 ? newWidth : 1200
-      if (w < 350) w = 350
-      setWindowWidth((prevWidth) => {
-        if (prevWidth !== w) {
-          return w
-        }
-        return prevWidth // không cập nhật nếu không thay đổi
-      })
-    }
-    handleResize() // Lấy giá trị ban đầu
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
+const GridListFriends = ({ windowWidth, users }) => {
   return (
     <div className="friend-grid-container">
       <div className="friend-grid-header">

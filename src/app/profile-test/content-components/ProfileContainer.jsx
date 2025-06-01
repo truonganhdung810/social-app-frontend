@@ -1,14 +1,13 @@
-import PostsList from "./PostsList";
-import PhotosGrid from "./PhotosGrid";
-import ListFriends from "./GridListFriends";
+import PostsList from './PostsList'
+import PhotosGrid from './PhotosGrid'
 
-import "./styles/profile-container.css";
-import GridListFriends from "./GridListFriends";
+import './styles/profile-container.css'
+import GridListFriends from './GridListFriends'
 
 export default function ProfileContainer({ userName, avaData, posts, users }) {
   const images = posts
-    .filter((post) => post.image && post.image.trim() !== "")
-    .map((post) => post.image);
+    .filter((post) => post.image && post.image.trim() !== '')
+    .map((post) => post.image)
 
   return (
     <div className="guest-profile-container-layout">
@@ -30,5 +29,5 @@ export default function ProfileContainer({ userName, avaData, posts, users }) {
         ></PostsList>
       </div>
     </div>
-  );
+  )
 }

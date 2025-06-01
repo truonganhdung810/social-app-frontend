@@ -1,14 +1,19 @@
 import CreateNewPost from './CreateNewPost'
 import PostsList from './PostsList'
 import PhotosGrid from './PhotosGrid'
-import ListFriends from './ListFriends'
 import React, { useState, useEffect, useRef } from 'react'
 import './styles/profile-container.css'
+import GridListFriends from './GridListFriends'
 
-export default function ProfileContainer({ userName, userAvaData }) {
+export default function ProfileContainer({
+  token,
+  windowWidth,
+  userName,
+  userId,
+  userAvaData,
+  users,
+}) {
   const [posts, setPosts] = useState([])
-  const token = localStorage.getItem('token')
-  const userId = localStorage.getItem('id')
   const [listImages, setListImages] = useState([])
 
   useEffect(() => {
@@ -77,10 +82,13 @@ export default function ProfileContainer({ userName, userAvaData }) {
           className="profile-photos-grid"
           images={listImages}
         ></PhotosGrid>
-        <ListFriends className="profile-list-friends"></ListFriends>
+        {/* <GridListFriends
+          windowWidth={windowWidth}
+          users={users}
+        ></GridListFriends> */}
       </div>
       <div className="profile-right-content">
-        <CreateNewPost setPosts={setPosts}></CreateNewPost>
+        <CreateNewPost token={token} setPosts={setPosts}></CreateNewPost>
         <PostsList
           posts={posts}
           userName={userName}

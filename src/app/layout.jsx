@@ -9,8 +9,8 @@ export const metadata = {
   description: 'Mạng xã hội đơn giản',
 }
 
-export default function RootLayout({ children }) {
-  const cookieStore = cookies()
+export default async function RootLayout({ children }) {
+  const cookieStore = await cookies()
   const token = cookieStore.get('token')?.value
   const isLoggedIn = !!token
   return (

@@ -6,29 +6,9 @@ import CoverImage from './CoverImage'
 import PopupMenu from './PopupMenu'
 import DragNewCoverImage from './DragNewCoverImage'
 
-const CoverContainer = ({ windowWidth }) => {
-  const src =
-    localStorage.getItem('cover') === 'null'
-      ? '/default_cover_size1200x400.png'
-      : localStorage.getItem('cover')
-  // Tách chuỗi từ phần '_size'
-  const sizePart = src.split('_size')[1]
-  const dimensions = sizePart.split('.')[0].split('x')
-
-  // Lấy width và height
-  const width = parseInt(dimensions[0], 10)
-  const height = parseInt(dimensions[1], 10)
-
-  const offsetX = localStorage.getItem('cover_offsetX')
-  const offsetY = localStorage.getItem('cover_offsetY')
-  const [coverData, setCoverData] = useState({
-    src,
-    width,
-    height,
-    offsetX,
-    offsetY,
-  })
-
+const CoverContainer = ({ token, windowWidth, coverData, setCoverData }) => {
+  console.log('Cover Data', coverData)
+  console.log('WindowWidth', windowWidth)
   const [newCoverData, setNewCoverData] = useState({
     file: null,
     src: '',
@@ -71,6 +51,7 @@ const CoverContainer = ({ windowWidth }) => {
         {isPreviewNewCover && (
           <div style={{ position: 'absolute' }}>
             <DragNewCoverImage
+              token={token}
               className="drag-new-cover"
               newCoverData={newCoverData}
               windowWidth={windowWidth}

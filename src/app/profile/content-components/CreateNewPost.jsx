@@ -4,7 +4,7 @@ import { TbPhotoPlus } from 'react-icons/tb'
 import compressImgPost from './compressImgPost'
 import { RiDeleteBack2Fill } from 'react-icons/ri'
 
-const CreateNewPost = ({ setPosts }) => {
+const CreateNewPost = ({ token, setPosts }) => {
   const [selectedImage, setSelectedImage] = useState(null)
   const imageFile = useRef(null)
   const fileInputRef = useRef(null)
@@ -70,22 +70,22 @@ const CreateNewPost = ({ setPosts }) => {
       const response = await fetch('http://localhost:4000/api/posts/create', {
         method: 'POST',
         headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
+          authorization: `Bearer ${token}`,
           id: localStorage.getItem('id'),
         },
         body: formData,
       })
 
       const result = await response.json()
-
+      console.log('New post response:', result)
       if (response.ok) {
         alert('Post created successfully!')
         setText('')
         setSelectedImage(null)
-
         if (fileInputRef.current) fileInputRef.current.value = ''
+        imageFile.current = null
         const newPost = {
-          id: result.id,
+          id: result.post_id,
           content: result.content,
           image: result.image,
           created_at: result.created_at,

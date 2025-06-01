@@ -1,5 +1,6 @@
 import React from 'react'
 import './styles/profile-photos-grid.css'
+import Link from 'next/link'
 
 const PhotosGrid = ({ images }) => {
   const limitedImages = images.slice(0, 9)
@@ -15,12 +16,14 @@ const PhotosGrid = ({ images }) => {
 
       <div className="profile-photos-grid-images">
         {limitedImages.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt={`photo-${index}`}
-            className="profile-photos-grid-item"
-          />
+          <Link href={img} key={index}>
+            <img
+              key={index}
+              src={img}
+              alt={`photo-${index}`}
+              className="profile-photos-grid-item"
+            />
+          </Link>
         ))}
       </div>
     </div>

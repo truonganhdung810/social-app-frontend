@@ -6,6 +6,7 @@ import CropAvatar from './CropAvatar'
 import ImageAvatar from './ImageAvatar'
 
 const AvatarContainer = ({
+  token,
   windowWidth,
   userName,
   userAvaData,
@@ -13,34 +14,6 @@ const AvatarContainer = ({
   isShowPopupCropAva,
   setIsShowPopupCropAva,
 }) => {
-  // let src = localStorage.getItem('avatar')
-  // let cropWidth = localStorage.getItem('ava_width')
-  // if (src === 'null') {
-  //   src = '/default-avatar_size200x200.jpg'
-  //   cropWidth = 200
-  // }
-  // // Tách chuỗi từ phần '_size'
-  // const sizePart = src.split('_size')[1]
-  // const dimensions = sizePart.split('.')[0].split('x')
-
-  // // Lấy width và height
-  // const width = parseInt(dimensions[0], 10)
-  // const height = parseInt(dimensions[1], 10)
-
-  // const rOffsetX = localStorage.getItem('ava_offsetX')
-  // const rOffsetY = localStorage.getItem('ava_offsetY')
-  //
-
-  //
-  // const [userAvaData, setUserAvaData] = useState({
-  //   src,
-  //   width,
-  //   height,
-  //   rOffsetX,
-  //   rOffsetY,
-  //   cropWidth,
-  // })
-
   const [isShowPopupMenu, setIsShowPopupMenu] = useState(false)
   const [cropAvatarData, setCropAvatarData] = useState({})
 
@@ -53,6 +26,7 @@ const AvatarContainer = ({
     <div style={{ position: 'relative', pointerEvents: 'none' }}>
       {isShowPopupCropAva && (
         <CropAvatar
+          token={token}
           isShowPopupCropAva={isShowPopupCropAva}
           setIsShowPopupCropAva={setIsShowPopupCropAva}
           cropAvaData={cropAvatarData}
