@@ -21,9 +21,9 @@ const CropAvatar = ({
 
   const minCropWidth = 180;
 
-  let popupWidth = (4 * windowWidth) / 5;
-  let popupHeight = (4 * popupWidth) / 5;
-  if (popupHeight < 600) popupHeight = 600;
+  let popupWidth = (3 * windowWidth) / 5;
+  let popupHeight = (3 * popupWidth) / 5;
+  if (popupHeight < 300) popupHeight = 300;
 
   let scaleX = popupWidth / width;
   let scaleY = popupHeight / height;

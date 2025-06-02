@@ -5,6 +5,9 @@
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   margin: 0 auto;
+  position: sticky;
+  top: 20px; /* Khoảng cách từ đỉnh trang */
+  align-self: flex-start;
 }
 
 .friend-grid-header {

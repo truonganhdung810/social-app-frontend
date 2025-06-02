@@ -7,7 +7,7 @@ async function ProfilePage({ params }) {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
   const { id } = await params;
-  console.log(token);
+  console.log(id);
 
   // danh sách users được dùng chung ở cả 3 viewmode
   const resUsers = await fetch("http://localhost:4000/api/users/public", {
@@ -23,7 +23,11 @@ async function ProfilePage({ params }) {
     }
   );
 
+  console.log("resUser", users)
+   console.log(resProfileId.ok)
+
   if (!resProfileId.ok) {
+   
     return <div>User not found</div>; // hoặc notFound()
   }
   const { user } = await resProfileId.json();

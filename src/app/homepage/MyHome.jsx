@@ -66,11 +66,11 @@ const MyHome = ({ token, posts, users }) => {
     setUserName(localStorage.getItem("name") || "");
 
     // Thông số cho cover
-    const cover_src =
-      localStorage.getItem("cover") === "null"
-        ? "/default_cover_size1200x400.png"
-        : localStorage.getItem("cover");
-    // Tách chuỗi từ phần '_size'
+    let cover_src = localStorage.getItem("cover")
+     if (cover_src === "null" || cover_src === null) {
+      cover_src = "/default-cover_size200x200.jpg";
+     
+    }
     const cover_sizePart = cover_src.split("_size")[1];
     const cover_dimensions = cover_sizePart.split(".")[0].split("x");
 

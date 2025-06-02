@@ -8,6 +8,7 @@ import Link from 'next/link'
 
 const GridListFriends = ({ users }) => {
   const [windowWidth, setWindowWidth] = useState(1200)
+  const limitUsers = users.slice(0, 9)
 
   useEffect(() => {
     const handleResize = () => {
@@ -35,7 +36,7 @@ const GridListFriends = ({ users }) => {
         </a>
       </div>
       <div className="friend-grid">
-        {users.map((user, index) => (
+        {limitUsers.map((user, index) => (
           <Link
             className="friend-item"
             key={index}

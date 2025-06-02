@@ -25,10 +25,10 @@ const Register = () => {
       alert('Plesea enter full of informations')
       return
     }
-    if (!isValidEmail(email)) {
-      alert('Email is invalid')
-      return
-    }
+    // if (!isValidEmail(email)) {
+    //   alert('Email is invalid')
+    //   return
+    // }
 
     if (password !== confirmPassword) {
       alert('Confirm password is not match')

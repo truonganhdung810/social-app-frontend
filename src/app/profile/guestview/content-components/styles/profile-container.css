@@ -13,9 +13,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  position: sticky;
-  top: 20px; /* Khoảng cách từ đỉnh trang */
-  align-self: flex-start;
 }
 
 /* Cột phải chỉ chứa phần 3 */

@@ -5,6 +5,7 @@ import MyHome from "./homepage/MyHome";
 export default async function HomePage() {
   const cookieStore = cookies();
   const token = cookieStore.get("token")?.value;
+  console.log("token",token)
 
   const res = await fetch("http://localhost:4000/api/users/public", {
     cache: "no-store",
